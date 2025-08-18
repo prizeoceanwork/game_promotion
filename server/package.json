@@ -1,0 +1,40 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:push": "drizzle-kit push",
+    "dev": "nodemon --watch src --exec tsx src/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/node": "^24.0.15",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
+    "drizzle-kit": "^0.31.4",
+    "esbuild": "^0.25.7",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.44.3",
+    "drizzle-zod": "^0.8.2",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "resend": "^4.7.0",
+    "zod": "^3.25.76"
+  }
+}
