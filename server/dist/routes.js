@@ -1,5 +1,5 @@
 import { createServer } from "http";
-import { storage } from "./storagejs";
+import { storage } from "./storage.js";
 import { insertRegistrationSchema, loginSchema, updateUserSchema } from "./schema.js";
 import { z } from "zod";
 import { sendWinnerEmail, sendTestEmail } from "./emailTemplates.js";
