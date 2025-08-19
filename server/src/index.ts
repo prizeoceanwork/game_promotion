@@ -1,6 +1,6 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
-import { registerRoutes } from "./routes/index";
+import { registerRoutes } from "./routes";
 import dotenv from "dotenv";
 dotenv.config();
 import { storage } from "./storage";
