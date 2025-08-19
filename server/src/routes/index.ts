@@ -1,9 +1,9 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
-import { insertRegistrationSchema, loginSchema, updateUserSchema } from "./schema";
+import { storage } from "../storage";
+import { insertRegistrationSchema, loginSchema, updateUserSchema } from "../schema";
 import { z } from "zod";
-import { sendWinnerEmail, sendTestEmail, WinnerEmailData } from "./emailTemplates";
+import { sendWinnerEmail, sendTestEmail, WinnerEmailData } from "../emailTemplates";
 import path from "path";
 
 // Extend Request type to include session
