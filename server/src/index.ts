@@ -84,6 +84,10 @@ app.use((req, res, next) => {
   });
 
 
+app.get( "/" , (req , res)=>{
+  res.send("Railway backend is rununig !!!")
+})
+
  
   const port = 3000;
 server.listen(port, () => {

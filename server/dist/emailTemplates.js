@@ -1,29 +1,18 @@
 import { Resend } from "resend";
-
-let resend: Resend | null = null;
-
+let resend = null;
 const getResend = () => {
-  if (!resend) {
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      throw new Error("RESEND_API_KEY environment variable is not set");
+    if (!resend) {
+        const apiKey = process.env.RESEND_API_KEY;
+        if (!apiKey) {
+            throw new Error("RESEND_API_KEY environment variable is not set");
+        }
+        resend = new Resend(apiKey);
     }
-    resend = new Resend(apiKey);
-  }
-  return resend;
+    return resend;
 };
-
-export interface WinnerEmailData {
-  userEmail: string;
-  userName: string;
-  prizeName: string;
-  prizeValue: string;
-  phoneNumber: string;
-}
-
 // Winner email template with brand colors
-export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
-  return `
+export const createWinnerEmailTemplate = (data) => {
+    return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -350,38 +339,34 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
 </html>
   `;
 };
-
-export const sendWinnerEmail = async (data: WinnerEmailData) => {
-  try {
-    const resend = getResend();
-    console.log("Attempting to send email to:", data.userEmail);
-
-    const { data: result, error } = await resend.emails.send({
-      from: "Done For You Pros Winner <winner@amazingworldmedia.com>",
-      to: data.userEmail,
-      subject: "Prize Notification - Done FOR YOU PROS",
-      html: createWinnerEmailTemplate(data),
-    });
-
-    if (error) {
-      console.error("Resend error:", error);
-      throw new Error(`Failed to send email: ${error.message}`);
+export const sendWinnerEmail = async (data) => {
+    try {
+        const resend = getResend();
+        console.log("Attempting to send email to:", data.userEmail);
+        const { data: result, error } = await resend.emails.send({
+            from: "Done For You Pros Winner <winner@amazingworldmedia.com>",
+            to: data.userEmail,
+            subject: "Prize Notification - Done FOR YOU PROS",
+            html: createWinnerEmailTemplate(data),
+        });
+        if (error) {
+            console.error("Resend error:", error);
+            throw new Error(`Failed to send email: ${error.message}`);
+        }
+        console.log("Winner email sent successfully:", result);
+        return { success: true, messageId: result?.id };
     }
-
-    console.log("Winner email sent successfully:", result);
-    return { success: true, messageId: result?.id };
-  } catch (error) {
-    console.error("Error sending winner email:", error);
-    throw error;
-  }
+    catch (error) {
+        console.error("Error sending winner email:", error);
+        throw error;
+    }
 };
-
-export const sendTestEmail = async (email: string) => {
-  return sendWinnerEmail({
-    userEmail: email,
-    userName: "Test Winner",
-    prizeName: "Home Appliance New Connection Part Professionally Installed",
-    prizeValue: "$197.00",
-    phoneNumber: "+1 (619) 871-2110",
-  });
+export const sendTestEmail = async (email) => {
+    return sendWinnerEmail({
+        userEmail: email,
+        userName: "Test Winner",
+        prizeName: "Home Appliance New Connection Part Professionally Installed",
+        prizeValue: "$197.00",
+        phoneNumber: "+1 (619) 871-2110",
+    });
 };

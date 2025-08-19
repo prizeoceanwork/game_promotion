@@ -31,7 +31,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
   role: true,
-});
+}) as unknown as z.ZodType<any, any, any>;
 
 export const loginSchema = z.object({
   username: z.string().email("Please enter a valid email address"),
@@ -48,13 +48,13 @@ export const insertRegistrationSchema = createInsertSchema(registrations).pick({
   phone: true,
   email: true,
   videoWatched: true,
-});
+}) as unknown as z.ZodType<any, any, any>;
 
 export const insertSettingSchema = createInsertSchema(settings).pick({
   key: true,
   value: true,
   description: true,
-});
+}) as unknown as z.ZodType<any, any, any>;
 
 export const updateSettingSchema = z.object({
   value: z.string(),

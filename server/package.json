@@ -6,7 +6,8 @@
   "scripts": {
     "db:push": "drizzle-kit push",
     "dev": "nodemon --watch src --exec tsx src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
