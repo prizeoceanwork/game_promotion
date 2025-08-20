@@ -1,4 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
+import type { QueryFunction } from "@tanstack/react-query";
 
 const API_BASE =
   import.meta.env.MODE === "development"

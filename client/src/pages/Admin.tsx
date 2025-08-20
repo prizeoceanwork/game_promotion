@@ -25,6 +25,11 @@ type UpdateUserData = {
   password?: string;
 };
 
+type Setting = {
+  key: string;
+  value: string;
+};
+
 
   type Registration = {
   id: string;
@@ -49,10 +54,10 @@ export default function Admin() {
     password: "",
   });
   const [testEmail, setTestEmail] = useState("");
-  const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [deleteItemId, setDeleteItemId] = useState<number | null>(null);
+  const [deleteItemId, setDeleteItemId] = useState<string  | null>(null);
   const [bulkDeleteDialogOpen, setBulkDeleteDialogOpen] = useState(false);
 
   // Check authentication
@@ -153,7 +158,7 @@ export default function Admin() {
   });
 
   const deleteRegistration = useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: string) => {
       const response = await fetch(`/api/admin/registrations/${id}`, {
         method: "DELETE",
       });
@@ -178,7 +183,7 @@ export default function Admin() {
     },
   });
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string ) => {
     setDeleteItemId(id);
     setDeleteDialogOpen(true);
   };
@@ -193,7 +198,7 @@ export default function Admin() {
 
   // Bulk delete mutation
   const bulkDeleteMutation = useMutation({
-    mutationFn: async (ids: number[]) => {
+    mutationFn: async (ids: string []) => {
       const response = await fetch("/api/admin/registrations/bulk-delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -223,7 +228,7 @@ export default function Admin() {
   });
 
   // Handle user selection
-  const handleUserSelect = (userId: number) => {
+  const handleUserSelect = (userId: string) => {
     setSelectedUsers(prev => 
       prev.includes(userId) 
         ? prev.filter(id => id !== userId)
@@ -1349,7 +1354,7 @@ export default function Admin() {
                       </p>
                     </div>
                     <Switch
-                      checked={settings?.find(s => s.key === 'video_requirement_enabled')?.value === 'true'}
+                      checked={settings?.find((s :Setting) => s.key === 'video_requirement_enabled')?.value === 'true'}
                       onCheckedChange={(checked) => {
                         updateSettingMutation.mutate({
                           key: 'video_requirement_enabled',
@@ -1371,7 +1376,7 @@ export default function Admin() {
                       </p>
                     </div>
                     <Switch
-                      checked={settings?.find(s => s.key === 'duplicate_email_check')?.value === 'true'}
+                      checked={settings?.find((s: Setting) => s.key === 'duplicate_email_check')?.value === 'true'}
                       onCheckedChange={(checked) => {
                         updateSettingMutation.mutate({
                           key: 'duplicate_email_check',
@@ -1386,24 +1391,24 @@ export default function Admin() {
                   <div className="grid grid-cols-1 gap-2">
                     <div className="flex items-center justify-center space-x-2 p-2 bg-white rounded-lg border border-purple-200">
                       <div className={`w-3 h-3 rounded-full ${
-                        settings?.find(s => s.key === 'video_requirement_enabled')?.value === 'true' 
+                        settings?.find((s: Setting) => s.key === 'video_requirement_enabled')?.value === 'true' 
                           ? 'bg-green-500 animate-pulse' 
                           : 'bg-red-500'
                       }`}></div>
                       <span className="text-sm font-medium text-purple-700" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                        {settings?.find(s => s.key === 'video_requirement_enabled')?.value === 'true' 
+                        {settings?.find((s: Setting) => s.key === 'video_requirement_enabled')?.value === 'true' 
                           ? 'Video Required' 
                           : 'Video Optional'}
                       </span>
                     </div>
                     <div className="flex items-center justify-center space-x-2 p-2 bg-white rounded-lg border border-purple-200">
                       <div className={`w-3 h-3 rounded-full ${
-                        settings?.find(s => s.key === 'duplicate_email_check')?.value === 'true' 
+                        settings?.find((s: Setting) => s.key === 'duplicate_email_check')?.value === 'true' 
                           ? 'bg-green-500 animate-pulse' 
                           : 'bg-red-500'
                       }`}></div>
                       <span className="text-sm font-medium text-purple-700" style={{ fontFamily: "Montserrat, sans-serif" }}>
-                        {settings?.find(s => s.key === 'duplicate_email_check')?.value === 'true' 
+                        {settings?.find((s: Setting) => s.key === 'duplicate_email_check')?.value === 'true' 
                           ? 'Email Check Enabled' 
                           : 'Email Check Disabled'}
                       </span>

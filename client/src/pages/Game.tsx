@@ -42,7 +42,6 @@ export default function Game() {
 
 
   const [, setLocation] = useLocation();
-  const [hoveredContent, setHoveredContent] = useState(null);
 
 
   // Security: Check for registered user data
@@ -751,7 +750,6 @@ interface ScratchOffCardProps {
 function ScratchOffCard({
   card,
   onScratch,
-  onScratchComplete,
   isFullyScratched,
   hidePrizes = false,
   onInitialCardTouch,
@@ -765,7 +763,7 @@ function ScratchOffCard({
   const [scratchedCells, setScratchedCells] = useState<boolean[]>(
     card.scratches,
   );
-  const [hoveredContent, setHoveredContent] = useState(null);
+  const [hoveredContent, setHoveredContent] = useState<string | null>(null);
 
 
   const handleCellScratch = (index: number) => {

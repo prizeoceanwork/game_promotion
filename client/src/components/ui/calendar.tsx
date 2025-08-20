@@ -51,14 +51,17 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: ({ className, ...props }) => (
-          <ChevronLeft className={cn("h-4 w-4", className)} {...props} />
-        ),
-        IconRight: ({ className, ...props }) => (
-          <ChevronRight className={cn("h-4 w-4", className)} {...props} />
-        ),
-      }}
+     components={
+    {
+      IconPrevious: ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+        <ChevronLeft className={cn("h-4 w-4", className)} {...props} />
+      ),
+      IconNext: ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
+        <ChevronRight className={cn("h-4 w-4", className)} {...props} />
+      ),
+    } as any
+  }
+
       {...props}
     />
   )

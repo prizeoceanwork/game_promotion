@@ -3,7 +3,17 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
+
 import { cn } from "@/lib/utils"
+
+interface PayloadItem {
+  name?: string;
+  value?: number | string;
+  payload?: Record<string, any>;
+  dataKey?: string;
+  color?: string;
+  fill?: string;
+}
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
@@ -111,6 +121,9 @@ const ChartTooltipContent = React.forwardRef<
       indicator?: "line" | "dot" | "dashed"
       nameKey?: string
       labelKey?: string
+      payload?: PayloadItem[]
+      label?: string;
+
     }
 >(
   (
@@ -258,14 +271,17 @@ ChartTooltipContent.displayName = "ChartTooltip"
 
 const ChartLegend = RechartsPrimitive.Legend
 
-const ChartLegendContent = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
->(
+import type { LegendPayload } from "recharts"
+
+interface ChartLegendContentProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "payload"> {
+  payload?: LegendPayload[];
+  verticalAlign?: "top" | "bottom" | "middle";
+  hideIcon?: boolean;
+  nameKey?: string;
+}
+
+const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentProps>(
   (
     { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
     ref
