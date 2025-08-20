@@ -21,9 +21,10 @@ import { useToast } from "@/hooks/use-toast";
 import logoPath from "../assets/logo.png";
 
 type UpdateUserData = {
-  value: string;
-  description?: string;
+  username?: string;
+  password?: string;
 };
+
 
   type Registration = {
   id: string;
@@ -423,7 +424,7 @@ export default function Admin() {
     const matchesSearch = 
       reg.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       reg.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      reg.phone.includes(searchTerm);
+      reg.phone.toString().includes(searchTerm);
     
     const matchesFilter = 
       filterType === "all" ||
