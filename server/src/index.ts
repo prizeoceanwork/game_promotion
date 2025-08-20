@@ -19,9 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cors({
-   origin : ['http://localhost:4173/' , 'https://frontend-production-69d4.up.railway.app/'],
-   credentials: true
-}))
+  origin: ['http://localhost:4173', 'https://frontend-production-69d4.up.railway.app'],
+  credentials: true
+}));
+
 
 // Configure session middleware
 app.use(
