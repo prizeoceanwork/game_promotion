@@ -5,6 +5,8 @@ type StatsResponse = {
   registrationCount: number;
 };
 
+
+
 export default function GamePreview() {
   const { data: stats } = useQuery<StatsResponse>({
     queryKey: ["/api/stats"],
