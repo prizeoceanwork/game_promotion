@@ -1,8 +1,8 @@
 import { createServer } from "http";
-import { insertRegistrationSchema, loginSchema, updateUserSchema } from "./schema.js";
-import { storage } from "./storage.js";
+import { storage } from "./storage";
+import { insertRegistrationSchema, loginSchema, updateUserSchema } from "./schema";
 import { z } from "zod";
-import { sendWinnerEmail, sendTestEmail } from "./emailTemplates.js";
+import { sendWinnerEmail, sendTestEmail } from "./emailTemplates";
 import path from "path";
 export async function registerRoutes(app) {
     // Initialize default admin user

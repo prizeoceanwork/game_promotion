@@ -1,11 +1,12 @@
 import express from "express";
 import session from "express-session";
-import { registerRoutes } from "./routes.js";
+import { registerRoutes } from "./routes";
 import dotenv from "dotenv";
 dotenv.config();
-import { storage } from "./storage.js";
+import { storage } from "./storage";
 import pg from 'pg';
 import pgSession from "connect-pg-simple";
+import cors from "cors";
 const pgPool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
 });
@@ -13,6 +14,10 @@ const PgSessionStore = pgSession(session);
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors({
+    origin: ['http://localhost:4173/', 'https://frontend-production-69d4.up.railway.app/'],
+    credentials : true
+}));
 // Configure session middleware
 app.use(session({
     store: new PgSessionStore({
