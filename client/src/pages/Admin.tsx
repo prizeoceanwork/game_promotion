@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logoPath from "../assets/logo.png";
+import { apiRequest } from "@/lib/queryClient";
 
 type UpdateUserData = {
   username?: string;
@@ -68,7 +69,7 @@ export default function Admin() {
   } = useQuery({
     queryKey: ["/api/auth/me"],
     queryFn: async () => {
-      const response = await fetch("/api/auth/me");
+      const response = await apiRequest("GET", "/api/auth/me");
       if (!response.ok) {
         throw new Error("Not authenticated");
       }
@@ -91,7 +92,7 @@ export default function Admin() {
   } = useQuery<Registration[]>({
     queryKey: ["/api/admin/registrations"],
     queryFn: async () => {
-      const response = await fetch("/api/admin/registrations");
+      const response = await apiRequest("GET", "/api/admin/registrations");
       if (!response.ok) {
         if (response.status === 401) {
           setLocation("/login");
@@ -106,9 +107,7 @@ export default function Admin() {
   // Logout mutation
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-      });
+      const response = await apiRequest("POST", "/api/auth/logout");
       if (!response.ok) {
         throw new Error("Failed to logout");
       }
@@ -126,13 +125,7 @@ export default function Admin() {
   // Update credentials mutation
   const updateCredentialsMutation = useMutation({
     mutationFn: async (data: UpdateUserData) => {
-      const response = await fetch("/api/admin/update-credentials", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await apiRequest("PUT", "/api/admin/update-credentials", data);
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to update credentials");
@@ -159,9 +152,7 @@ export default function Admin() {
 
   const deleteRegistration = useMutation({
     mutationFn: async (id: string) => {
-      const response = await fetch(`/api/admin/registrations/${id}`, {
-        method: "DELETE",
-      });
+     const response = await apiRequest("DELETE", `/api/admin/registrations/${id}`);
       if (!response.ok) {
         throw new Error("Failed to delete registration");
       }
@@ -199,11 +190,7 @@ export default function Admin() {
   // Bulk delete mutation
   const bulkDeleteMutation = useMutation({
     mutationFn: async (ids: string []) => {
-      const response = await fetch("/api/admin/registrations/bulk-delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids }),
-      });
+       const response = await apiRequest("POST", "/api/admin/registrations/bulk-delete", { ids });
       if (!response.ok) {
         throw new Error("Failed to delete users");
       }
@@ -281,13 +268,7 @@ export default function Admin() {
   // Test email mutation
   const testEmailMutation = useMutation({
     mutationFn: async (email: string) => {
-      const response = await fetch("/api/email/test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await apiRequest("POST", "/api/email/test", { email });
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to send test email");
@@ -321,7 +302,7 @@ export default function Admin() {
   const { data: settings } = useQuery({
     queryKey: ["/api/admin/settings"],
     queryFn: async () => {
-      const response = await fetch("/api/admin/settings");
+      const response = await apiRequest("GET", "/api/admin/settings");
       if (!response.ok) {
         throw new Error("Failed to fetch settings");
       }
@@ -333,13 +314,7 @@ export default function Admin() {
   // Settings mutation
   const updateSettingMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string; value: string }) => {
-      const response = await fetch(`/api/admin/settings/${key}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ value }),
-      });
+     const response = await apiRequest("PUT", `/api/admin/settings/${key}`, { value });
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to update setting");

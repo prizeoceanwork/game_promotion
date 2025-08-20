@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import gameCardImage from "../assets/homepage.png";
+import { apiRequest } from "@/lib/queryClient";
 
 type StatsResponse = {
   registrationCount: number;
@@ -11,7 +12,7 @@ export default function GamePreview() {
   const { data: stats } = useQuery<StatsResponse>({
     queryKey: ["/api/stats"],
     queryFn: async () => {
-      const res = await fetch("/api/stats");
+      const res = await apiRequest("GET" ,"/api/stats");
       if (!res.ok) throw new Error("Failed to fetch stats");
       return res.json();
     },
