@@ -1,9 +1,9 @@
 import express from "express";
 import session from "express-session";
-import { registerRoutes } from "./routes";
+import { registerRoutes } from "./routes.js";
 import dotenv from "dotenv";
 dotenv.config();
-import { storage } from "./storage";
+import { storage } from "./storage.js";
 import pg from 'pg';
 import pgSession from "connect-pg-simple";
 import cors from "cors";
