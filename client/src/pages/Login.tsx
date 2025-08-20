@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { z } from "zod";
+import { apiRequest } from "@/lib/queryClient";
 
 
 const loginSchema = z.object({
@@ -28,14 +29,7 @@ export default function Login() {
 
   const loginMutation = useMutation({
     mutationFn: async (data: LoginData) => {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      
+      const response = await apiRequest("POST", "/api/auth/login", data);
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Login failed");
