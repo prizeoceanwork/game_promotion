@@ -1,5 +1,5 @@
 import { users, registrations, settings } from "./schema.js";
-import { db } from "./db";
+import { db } from "./db.js";
 import { eq, count, desc } from "drizzle-orm";
 export class DatabaseStorage {
     async getUser(id) {
