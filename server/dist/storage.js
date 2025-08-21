@@ -1,4 +1,4 @@
-import { users, registrations, settings } from "./schema.js";
+import { users, registrations, settings } from "./schema";
 import { db } from "./db.js";
 import { eq, count, desc } from "drizzle-orm";
 export class DatabaseStorage {

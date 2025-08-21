@@ -18,6 +18,7 @@ app.use(cors({
     origin: ['http://localhost:4173', 'https://amazingworldmedia.net'],
     credentials: true
 }));
+app.set('trust proxy', 1);
 // Configure session middleware
 app.use(session({
     store: new PgSessionStore({
