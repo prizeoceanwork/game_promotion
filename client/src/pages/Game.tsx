@@ -6,6 +6,8 @@ import logoPath from "../assets/logo.png";
 import { apiRequest } from "@/lib/queryClient";
 import bgGame from "../assets/bgWheel.png";
 import wayCome from "../font/WayCome.otf"
+import videoFile from "../assets/Michael Patrick - Part 2 D4U Scratch & Win.mp4";
+import videoThumbnail from "../assets/poster.png";
 
 
 
@@ -126,8 +128,9 @@ export default function Game() {
       ],
     },
   ]);
-  const [gameComplete, setGameComplete] = useState(false);
-  const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
+  const [gameComplete, setGameComplete] = useState(false); 
+const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
+
   const [firstCardComplete, setFirstCardComplete] = useState(false);
   const [showEmailPrompt, setShowEmailPrompt] = useState(false);
   const [winnerEmail, setWinnerEmail] = useState("");
@@ -263,7 +266,7 @@ export default function Game() {
     const card = cards.find((c) => c.id === cardId);
     if (card && card.isWinner) {
       setWinnerCard(card);
-      setTimeout(() => setGameComplete(true), 500);
+      setGameComplete(true);
     }
   };
 
@@ -649,7 +652,10 @@ export default function Game() {
 
       {/* Winner Modal */}
       {gameComplete && winnerCard && (
-  <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-3">
+  <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-3"
+   style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)',
+     fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    }}>
     <div className="bg-gradient-to-br from-blue-500 to-orange-500 p-3 rounded-2xl w-full max-w-md mx-3 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div className="bg-white rounded-xl p-4 text-center relative overflow-hidden">
         {/* Trophy and confetti */}
@@ -657,15 +663,19 @@ export default function Game() {
         <div className="text-2xl mb-2">🎉 🎊 🎉</div>
         <div className="text-2xl mb-2 bg-gradient-to-r from-yellow-600 to-red-600 text-transparent bg-clip-text"> WINNER </div>
 
-        {/* Prize box */}
-        <div className="bg-gradient-to-r from-green-100 to-green-200 p-3 rounded-lg mb-3 shadow-inner border">
-          <h4 className="text-lg  text-green-800 mb-1">🎁 CONGRATULATIONS!</h4>
-          <p className="text-sm text-blue-600 font-medium mb-1">
-            You matched 3 "Dishwasher New Water Valve Installation" prizes!
-          </p>
-          <p className="text-lg  text-green-700">$591 VALUE</p>
+         {/* 🎥 Video section */}
+        <div className="my-4">
+          <video
+            controls
+            className="w-full rounded-lg shadow-md"
+            poster={videoThumbnail}
+          >
+            <source src={videoFile} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
 
+      
         {/* Call-to-action */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg mb-3 shadow-md">
           <h4 className="text-base  mb-2">🔥 CLAIM YOUR PRIZE!</h4>
