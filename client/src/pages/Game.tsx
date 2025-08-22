@@ -423,7 +423,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
       <div className="text-center py-8 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2"
+            className="text-3xl md:text-4xl lg:text-4xl font-bold mb-2"
             style={{
               ...wayComeFontStyle,
               color: "#F76D46",
@@ -434,7 +434,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
             IT'S TIME TO PLAY OUR SCRATCH &
           </h1>
           <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
+            className="text-3xl md:text-4xl lg:text-4xl font-bold mb-6"
             style={{
               ...wayComeFontStyle,
               color: "#F76D46",
@@ -445,7 +445,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
             WIN GAME
           </h1>
           <h2
-            className="text-2xl md:text-3xl lg:text-4xl font-bold"
+            className="text-2xl md:text-3xl lg:text-3xl font-bold"
             style={{
               ...wayComeFontStyle,
               color: "#2C5CDC",
@@ -798,16 +798,8 @@ function ScratchOffCard({
 
   return (
     <div className="flex justify-center">
-      <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[400px] lg:h-[400px]">
+      <div className="relative wheel-size-sm wheel-size-md  w-[415px] h-[415px] md:w-96 md:h-96 lg:w-[400px] lg:h-[400px]">
         {/* Colorful circular background - using your wheel image */}
-        <style>{`
-  @media (max-width: 321px) {
-    .wheel-container {
-      width: 103% ;
-      height: 98% ;
-    }
-  }
-`}</style>
         <div
           className="absolute inset-0 rounded-full bg-cover bg-center bg-no-repeat wheel-container "
           style={{
@@ -818,7 +810,7 @@ function ScratchOffCard({
         ></div>
         {hoveredContent && (
           <div className="fixed top-4 left-4 z-50 bg-yellow-400 text-black border-2 border-yellow-400 p-4 rounded shadow-lg w-40 h-40">
-            <div className="text-black text-sm flex text leading-tight"   style={{
+            <div className="text-black text-sm flex mt-5 text leading-tight"   style={{
             fontWeight: "lighter",
             fontFamily: "Montserrat, sans-serif",
             fontSize: "0.8rem",
@@ -867,6 +859,44 @@ function ScratchOffCard({
               & YOU WIN!
             </p>
           </div>
+
+           <style>{`
+                  @media (max-width: 426px) {
+                    .wheel-container-lg {
+                      font-size : 8px
+                    }
+                    .card-size-lg{
+                    width: 78px;
+                    height: 78px
+                    }
+                  }
+                   @media (max-width: 376px) {
+                    .wheel-container-md {
+                      font-size : 7px
+                    }
+                    .card-size-md{
+                    width: 65px;
+                    height: 65px
+                    }
+                    .wheel-size-md {
+                      width: 360px ;
+                      height: 360px ;
+                    }
+                  }
+                     @media (max-width: 321px) {
+                    .wheel-container-sm {
+                      font-size : 4px
+                    }
+                    .card-size-sm{
+                    width: 45px;
+                    height: 45px
+                    }
+                    .wheel-size-sm  {
+                      width: 310px ;
+                      height: 310px ;
+                    }
+                  }
+                `}</style>
               
           {/* Scratch Grid */}
           <div className="grid grid-cols-3 gap-1 mb-3 md:mb-4">
@@ -874,8 +904,9 @@ function ScratchOffCard({
               <div
                 key={index}
               
-                className="w-10 h-10 md:w-12  md:h-12 lg:w-14 lg:h-14 border-2 border-yellow-400 relative overflow-hidden"
+                className=" card-size-sm card-size-md card-size-lg w-19 h-19  md:w-12  md:h-12 lg:w-14 lg:h-14 border-2 border-yellow-400 relative overflow-hidden"
               >
+                
                 {scratchedCells[index] ? (
                   <div className="w-full h-full  bg-yellow-400 text-black flex items-center justify-center p-0.5 overflow-hidden">
                     <div
@@ -890,22 +921,24 @@ function ScratchOffCard({
                         </div>
                       ) : (
                         <div className="text-center p-0.5 w-full h-full flex flex-col justify-center items-center">
-                          <div className="prize-text-line1 font-bold leading-none mb-0.5 max-w-full break-words">
+                          
+                          <div className="prize-text-line1 wheel-container-sm wheel-container-md wheel-container-lg font-bold leading-none mb-0.5 max-w-full break-words"
+                        >
                             {card.prizes[index]
                               .split(" ")
                               .slice(0, 2)
                               .join(" ")}
                           </div>
-                          <div className="prize-text-line2 leading-none mb-0.5 max-w-full break-words">
+                          <div className="prize-text-line2 wheel-container-sm wheel-container-md wheel-container-lg leading-none mb-0.5 max-w-full break-words">
                             {card.prizes[index]
                               .split(" ")
                               .slice(2, 5)
                               .join(" ")}
                           </div>
-                          <div className="prize-text-line3 leading-none mb-0.5 max-w-full break-words">
+                          <div className="prize-text-line3  wheel-container-sm wheel-container-md wheel-container-lg  leading-none mb-0.5 max-w-full break-words">
                             {card.prizes[index].split(" ").slice(5).join(" ")}
                           </div>
-                          <div className="prize-text-value font-bold text-green-600 leading-none max-w-full">
+                          <div className="prize-text-value  wheel-container-sm wheel-container-md wheel-container-lg font-bold text-green-600 leading-none max-w-full">
                             {card.prizeValues[index]}
                           </div>
                         </div>
@@ -933,22 +966,22 @@ function ScratchOffCard({
                           </div>
                         ) : (
                           <div className="text-center p-0.5 w-full h-full flex flex-col justify-center items-center">
-                            <div className="prize-text-line1 font-bold leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line1 wheel-container-sm wheel-container-md wheel-container-lg font-bold leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index]
                                 .split(" ")
                                 .slice(0, 2)
                                 .join(" ")}
                             </div>
-                            <div className="prize-text-line2 leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line2 wheel-container-sm wheel-container-md wheel-container-lg  leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index]
                                 .split(" ")
                                 .slice(2, 5)
                                 .join(" ")}
                             </div>
-                            <div className="prize-text-line3 leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line3 wheel-container-sm wheel-container-md wheel-container-lg  leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index].split(" ").slice(5).join(" ")}
                             </div>
-                            <div className="prize-text-value font-bold text-green-600 leading-none max-w-full">
+                            <div className="prize-text-value wheel-container-sm wheel-container-md wheel-container-lg font-bold text-green-600 leading-none max-w-full">
                               {card.prizeValues[index]}
                             </div>
                           </div>
