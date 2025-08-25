@@ -241,14 +241,14 @@ export default function RegistrationForm({
                           style={{ fontFamily: "Montserrat, sans-serif" }}
                         >
                           <User className="mr-2 text-[#F76D46]" size={16} />
-                          Full Name
+                          First Name
                         </FormLabel>
                         <div className="relative">
                           <FormControl>
                             <Input
                               {...field}
                               disabled={videoRequirementEnabled && !videoWatched}
-                              placeholder="Enter your full name"
+                              placeholder="Enter your first name"
                               className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-gray-200 cursor-not-allowed" : "bg-white"}`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />
@@ -327,7 +327,7 @@ export default function RegistrationForm({
                               {...field}
                               type="email"
                               disabled={videoRequirementEnabled && !videoWatched}
-                              placeholder="your.email@example.com"
+                              placeholder="winner@amazingworldmedia.net"
                               className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-gray-200 cursor-not-allowed" : "bg-white"}`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />

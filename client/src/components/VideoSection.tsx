@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import Hls from "hls.js";
 import { Play, PlayCircle } from "lucide-react";
-import videoFile from "../assets/Michael Patrick - PART 1 D4UP Scratch & Win (1).mp4";
-import videoThumbnail from "../assets/poster.png";
+import videoThumbnail from "../assets/poster.png"; // keep your poster
 
 interface VideoSectionProps {
   onVideoComplete: () => void;
@@ -14,15 +14,29 @@ export default function VideoSection({ onVideoComplete }: VideoSectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const hlsUrl =
+      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_PART_1_D4UP_Scratch_Win_1_f6nipw.m3u8";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      // Safari native HLS
+      video.src = hlsUrl;
+    }
+  }, []);
+
   const handlePlay = () => {
     setIsLoading(true);
     setIsPlaying(true);
-
-    // Start playing the video
     if (videoRef.current) {
-      videoRef.current.play();
+      videoRef.current.play().finally(() => setIsLoading(false));
     }
-    setIsLoading(false);
   };
 
   const handleTimeUpdate = () => {
@@ -32,7 +46,6 @@ export default function VideoSection({ onVideoComplete }: VideoSectionProps) {
       const progressPercent = (currentTime / duration) * 100;
       setProgress(progressPercent);
 
-      // Enable form when video is 80% complete
       if (progressPercent >= 80 && !videoCompleted) {
         onVideoComplete();
         setVideoCompleted(true);
@@ -40,93 +53,47 @@ export default function VideoSection({ onVideoComplete }: VideoSectionProps) {
     }
   };
 
-  const handleVideoEnd = () => {
-    if (!videoCompleted) {
-      onVideoComplete();
-      setVideoCompleted(true);
-    }
-  };
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.addEventListener("timeupdate", handleTimeUpdate);
-      video.addEventListener("ended", handleVideoEnd);
-
-      return () => {
-        video.removeEventListener("timeupdate", handleTimeUpdate);
-        video.removeEventListener("ended", handleVideoEnd);
-      };
-    }
-  }, []);
-
   return (
     <section className="bg-white py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          {/* Video Header */}
           <div className="bg-gradient-to-r from-[#F76D46] to-[#2C5CDC] text-white text-center py-4 md:py-6 rounded-t-lg shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-3 px-4">
               <PlayCircle className="animate-pulse flex-shrink-0" size={24} />
-              <h2
-                className="text-base md:text-2xl font-bold text-center md:text-left"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
+              <h2 className="text-base md:text-2xl font-bold">
                 CLICK BELOW TO WATCH THE VIDEO
               </h2>
             </div>
           </div>
 
-          {/* Video Player */}
           <div className="relative bg-gray-900 rounded-b-lg shadow-2xl overflow-hidden">
             <div className="aspect-video relative">
-              {/* Local video with optimized loading */}
               <video
                 ref={videoRef}
                 className="w-full h-full object-cover"
                 preload="metadata"
                 playsInline
-                controls
-                muted={false}
-                style={{ display: isPlaying ? "block" : "none" }}
+                controls={isPlaying} // show controls only after play
                 poster={videoThumbnail}
-                onLoadStart={() => setIsLoading(true)}
-                onCanPlay={() => setIsLoading(false)}
-              >
-                <source src={videoFile} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+                onTimeUpdate={handleTimeUpdate}
+              />
 
-              {/* Video preview with play button */}
               {!isPlaying && (
-                <div className="w-full h-full relative">
-                  <img
-                    src={videoThumbnail}
-                    alt="Video thumbnail"
-                    className="w-full h-full object-cover"
-                  />
-                  
-
-                  <button
-                    onClick={handlePlay}
-                    disabled={isLoading}
-                    className="absolute inset-0 flex items-center justify-center z-10 bg-transparent  transition-all duration-300"
-                  >
-                    <div className="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-6 transform hover:scale-110 transition-all duration-300 shadow-2xl">
-                      {isLoading ? (
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F76D46]"></div>
-                      ) : (
-                        <Play
-                          className="text-4xl text-[#F76D46] ml-1"
-                          size={48}
-                        />
-                      )}
-                    </div>
-                  </button>
-                </div>
+                <button
+                  onClick={handlePlay}
+                  disabled={isLoading}
+                  className="absolute inset-0 flex items-center justify-center z-10 bg-black/40"
+                >
+                  <div className="bg-white bg-opacity-90 rounded-full p-6 shadow-2xl">
+                    {isLoading ? (
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F76D46]"></div>
+                    ) : (
+                      <Play className="text-4xl text-[#F76D46] ml-1" size={48} />
+                    )}
+                  </div>
+                </button>
               )}
 
-              {/* Video Progress Indicator */}
               <div
                 className="absolute bottom-0 left-0 h-1 bg-[hsl(16,100%,64%)] transition-all duration-300"
                 style={{ width: `${progress}%` }}

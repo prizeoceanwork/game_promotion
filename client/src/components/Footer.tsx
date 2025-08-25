@@ -18,7 +18,7 @@ export default function Footer() {
           {/* Copyright and Contact */}
           <div className="text-center">
             <p className="text-gray-700 text-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              All Rights Reserved © 2024 | Done For You Pros | 
+              All Rights Reserved © 2025 | Done For You Pros | 
               <a 
                 href="tel:3102956355" 
                 className="text-[#F76D46] hover:text-[#2C5CDC] transition-colors ml-1"
