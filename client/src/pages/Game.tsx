@@ -8,7 +8,7 @@ import bgGame from "../assets/bgWheel.png";
 import wayCome from "../font/WayCome.otf"
 import videoFile from "../assets/Michael Patrick - Part 2 D4U Scratch & Win.mp4";
 import videoThumbnail from "../assets/poster.png";
-
+import Hls from "hls.js"; 
 
 
 
@@ -49,6 +49,24 @@ export default function Game() {
   // Security: Check for registered user data
   const [userRegistrationData, setUserRegistrationData] = useState<any>(null);
   
+
+ useEffect(() => {
+    const hlsUrl =
+      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_PART_2_D4UP_Scratch_Win_1_blonkc.m3u8";
+
+    const video = document.getElementById("game-video") as HTMLVideoElement;
+
+    if (video) {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(hlsUrl);
+        hls.attachMedia(video);
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        // Safari native HLS
+        video.src = hlsUrl;
+      }
+    }
+  }, []);
   
   useEffect(() => {
     // Check if user came from registration
@@ -666,6 +684,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
          {/* 🎥 Video section */}
         <div className="my-4">
           <video
+            id="game-video"
             controls
             className="w-full rounded-lg shadow-md"
             poster={videoThumbnail}
