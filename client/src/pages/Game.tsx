@@ -441,7 +441,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
       <div className="text-center py-8 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <h1
-            className="text-3xl md:text-4xl lg:text-4xl font-bold mb-2"
+            className="text-3xl md:text-3xl lg:text-3xl font-bold mb-2"
             style={{
               ...wayComeFontStyle,
               color: "#F76D46",
@@ -452,7 +452,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
             IT'S TIME TO PLAY OUR SCRATCH &
           </h1>
           <h1
-            className="text-3xl md:text-4xl lg:text-4xl font-bold mb-6"
+            className="text-3xl md:text-3xl lg:text-3xl font-bold mb-6"
             style={{
               ...wayComeFontStyle,
               color: "#F76D46",
@@ -463,7 +463,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
             WIN GAME
           </h1>
           <h2
-            className="text-2xl md:text-3xl lg:text-3xl font-bold"
+            className="text-2xl md:text-2xl lg:text-2xl font-bold"
             style={{
               ...wayComeFontStyle,
               color: "#2C5CDC",
@@ -801,7 +801,7 @@ function ScratchOffCard({
     setScratchedCells(newScratched);
     onScratch(card.id, index);
     // console.log("Cell scratched:", card.prizes);
-  const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 426;
   if (isMobile) {
     setHoveredContent(
       hidePrizes ? "?" : `${card.prizes[index]} ${card.prizeValues[index]}`
@@ -817,7 +817,7 @@ function ScratchOffCard({
 
   return (
     <div className="flex justify-center">
-      <div className="relative wheel-size-sm wheel-size-md  w-[415px] h-[415px] md:w-96 md:h-96 lg:w-[480px] lg:h-[480px]">
+      <div className="relative wheel-size-lgmb wheel-size-sm wheel-size-tab wheel-size-laptop wheel-size-md wheel-size-xl  w-[415px] h-[415px] md:w-96 md:h-96 lg:w-[480px] lg:h-[480px]">
         {/* Colorful circular background - using your wheel image */}
         <div
           className="absolute inset-0 rounded-full bg-cover bg-center bg-no-repeat wheel-container "
@@ -888,16 +888,62 @@ function ScratchOffCard({
           </div>
 
            <style>{`
+
+             @media (max-width: 2560px) {
+                   
+                     .wheel-container-xl {
+                      font-size : 11px
+                    }
+                      .card-size-xl  {
+                      width: 100px ;
+                      height: 100px ;
+                    }
+                      .wheel-size-xl  {
+                      width: 580px ;
+                      height: 580px ;
+                    }
+                  }
             @media (max-width: 1440px) {
                    
                      .wheel-container-xl {
-                      font-size : 8px
+                      font-size : 11px
+                    }
+                      .card-size-xl  {
+                      width: 100px ;
+                      height: 100px ;
+                    }
+                      .wheel-size-xl  {
+                      width: 580px ;
+                      height: 580px ;
                     }
                   }
                      @media (max-width: 1024px) {
                    
                      .wheel-container-laptop {
-                      font-size : 5px
+                      font-size : 9px
+                    }
+                      .card-size-laptop  {
+                      width: 80px ;
+                      height: 80px ;
+                    }
+                      .wheel-size-laptop  {
+                      width: 480px ;
+                      height: 480px ;
+                    }
+                  }
+
+                   @media (max-width: 768px) {
+                   
+                     .wheel-container-tab {
+                      font-size : 10px
+                    }
+                      .card-size-tab  {
+                      width: 100px ;
+                      height: 100px ;
+                    }
+                      .wheel-size-tab  {
+                      width: 550px ;
+                      height: 550px ;
                     }
                   }
 
@@ -911,6 +957,10 @@ function ScratchOffCard({
                     }
                     .hovertext{
                     font-size : 15px
+                    }
+                    .wheel-size-lgmb  {
+                      width: 420px ;
+                      height: 420px ;
                     }
                   }
                    @media (max-width: 376px) {
@@ -947,7 +997,7 @@ function ScratchOffCard({
               <div
                 key={index}
               
-                className=" card-size-sm card-size-md card-size-lg  w-19 h-19  md:w-12  md:h-12 lg:w-18 lg:h-18 border-2 border-yellow-400 relative overflow-hidden"
+                className=" card-size-sm card-size-md card-size-lg  card-size-tab  card-size-laptop card-size-xl w-19 h-19  md:w-12  md:h-12 lg:w-18 lg:h-18 border-2 border-yellow-400 relative overflow-hidden"
               >
                 
                 {scratchedCells[index] ? (
@@ -965,23 +1015,23 @@ function ScratchOffCard({
                       ) : (
                         <div className="text-center p-0.5 w-full h-full flex flex-col justify-center items-center">
                           
-                          <div className="prize-text-line1 wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold leading-none mb-0.5 max-w-full break-words"
+                          <div className="prize-text-line1 wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold leading-none mb-0.5 max-w-full break-words"
                         >
                             {card.prizes[index]
                               .split(" ")
                               .slice(0, 2)
                               .join(" ")}
                           </div>
-                          <div className="prize-text-line2 wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
+                          <div className="prize-text-line2 wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
                             {card.prizes[index]
                               .split(" ")
                               .slice(2, 5)
                               .join(" ")}
                           </div>
-                          <div className="prize-text-line3  wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
+                          <div className="prize-text-line3  wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
                             {card.prizes[index].split(" ").slice(5).join(" ")}
                           </div>
-                          <div className="prize-text-value  wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold text-green-600 leading-none max-w-full">
+                          <div className="prize-text-value  wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold text-green-600 leading-none max-w-full">
                             {card.prizeValues[index]}
                           </div>
                         </div>
@@ -1009,22 +1059,22 @@ function ScratchOffCard({
                           </div>
                         ) : (
                           <div className="text-center p-0.5 w-full h-full flex flex-col justify-center items-center">
-                            <div className="prize-text-line1 wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop font-bold leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line1 wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop font-bold leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index]
                                 .split(" ")
                                 .slice(0, 2)
                                 .join(" ")}
                             </div>
-                            <div className="prize-text-line2 wheel-container-sm wheel-container-md wheel-container-lg  wheel-container-xl wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line2 wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg  wheel-container-xl wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index]
                                 .split(" ")
                                 .slice(2, 5)
                                 .join(" ")}
                             </div>
-                            <div className="prize-text-line3 wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
+                            <div className="prize-text-line3 wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl  wheel-container-laptop leading-none mb-0.5 max-w-full break-words">
                               {card.prizes[index].split(" ").slice(5).join(" ")}
                             </div>
-                            <div className="prize-text-value wheel-container-sm wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold text-green-600 leading-none max-w-full">
+                            <div className="prize-text-value wheel-container-sm wheel-container-tab wheel-container-md wheel-container-lg wheel-container-xl wheel-container-laptop font-bold text-green-600 leading-none max-w-full">
                               {card.prizeValues[index]}
                             </div>
                           </div>
