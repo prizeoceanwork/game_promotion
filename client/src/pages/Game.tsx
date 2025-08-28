@@ -477,8 +477,8 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
 
       {/* Game Cards Section */}
       <div className="py-8 px-4 ">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 ">
+        <div className="max-w-6xl maxwidth-lp mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 ">
             {cards.map((card) => (
               <ScratchOffCard
                 key={card.id}
@@ -854,9 +854,9 @@ function ScratchOffCard({
         <div className="absolute inset-4  rounded-full flex flex-col items-center justify-center p-3 md:p-4">
           {/* Match 3 Header */}
           <div className="text-center mb-2 md:mb-3">
-            <div className="flex items-center justify-center mb-1">
+            <div className="flex items-center justify-center mb-1 margintop">
               <span
-                className="text-white font-bold text-xl md:text-2xl lg:text-3xl mr-2"
+                className="text-white font-bold text-xl md:text-2xl lg:text-4xl mr-2"
                 style={{
                   ...wayComeFontStyle,
                   textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
@@ -904,17 +904,23 @@ function ScratchOffCard({
                     }
                   }
             @media (max-width: 1440px) {
+                   .margintop{
+                   margin-top: -30px;
+                   }
                    
+                   .maxwidth-lp{
+                    max-width: 2550px;
+                   }
                      .wheel-container-xl {
-                      font-size : 11px
+                      font-size : 14px
                     }
                       .card-size-xl  {
-                      width: 100px ;
-                      height: 100px ;
+                      width: 130px ;
+                      height: 130px ;
                     }
                       .wheel-size-xl  {
-                      width: 580px ;
-                      height: 580px ;
+                      width: 700px ;
+                      height: 700px ;
                     }
                   }
                      @media (max-width: 1024px) {
