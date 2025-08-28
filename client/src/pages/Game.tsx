@@ -9,6 +9,9 @@ import wayCome from "../font/WayCome.otf"
 import videoFile from "../assets/Michael Patrick - Part 2 D4U Scratch & Win.mp4";
 import videoThumbnail from "../assets/poster.png";
 import Hls from "hls.js"; 
+import scratchSound from "../assets/assets_sounds_sound_scratch.mp3";
+import { useRef } from "react";
+
 
 
 
@@ -303,7 +306,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         userName: winnerName,
         prizeName: "Dishwasher New Water Valve Installation",
         prizeValue: "$591",
-        phoneNumber: "(310) 295-6355"
+        phoneNumber: "(619) 871-2110"
       });
       
       // Show winner popup after email is sent
@@ -524,7 +527,6 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl p-4 sm:p-6 max-w-sm mx-4 shadow-2xl border-4 border-orange-500">
             <div className="text-center">
-              <div className="text-4xl mb-3">⚠️</div>
               <h3
                 className="text-lg sm:text-xl font-bold mb-2 text-orange-600"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -558,7 +560,6 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
           <div className="bg-gradient-to-br from-blue-500 to-orange-500 p-4 rounded-3xl max-w-md w-full mx-4 shadow-2xl animate-float">
             <div className="bg-white rounded-2xl p-6 text-center">
-              <div className="text-5xl mb-4 animate-wiggle">😅</div>
               
               <h3
                 className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-blue-500 "
@@ -568,7 +569,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
               </h3>
               
               <p
-                className="text-lg mb-6 text-gray-700 leading-relaxed"
+                className="text-md mb-6 text-gray-700 leading-relaxed"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 You didn't win this round, but <strong>don't give up!</strong>
@@ -697,10 +698,10 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
       
         {/* Call-to-action */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg mb-3 shadow-md">
-          <h4 className="text-base  mb-2">🔥 CLAIM YOUR PRIZE!</h4>
+          <h4 className="text-base  mb-2">CLAIM YOUR PRIZE!</h4>
           <div className="bg-white text-gray-900 p-2 rounded shadow-inner mb-2">
             <p className="text-sm font-semibold text-blue-600">📞 CALL NOW</p>
-            <p className="text-lg  text-green-600">(310) 295-6355</p>
+            <p className="text-lg  text-green-600">(619) 871-2110</p>
           </div>
           <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-2 rounded shadow-inner">
             <p className="text-xs font-light" style={{
@@ -735,7 +736,6 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
       {gameComplete && !winnerCard && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 md:p-6">
           <div className="bg-white p-6 sm:p-8 md:p-10 rounded-lg text-center max-w-md md:max-w-lg mx-4 shadow-2xl">
-            <div className="text-6xl md:text-7xl mb-4 md:mb-6">😢</div>
             <h3
               className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-600"
               style={wayComeFontStyle}
@@ -794,6 +794,38 @@ function ScratchOffCard({
   );
   const [hoveredContent, setHoveredContent] = useState<string | null>(null);
 
+  const scratchAudioRef = useRef<HTMLAudioElement | null>(null);
+   useEffect(() => {
+  scratchAudioRef.current = new Audio(scratchSound);
+  scratchAudioRef.current.loop = true;
+  scratchAudioRef.current.volume = 0.7;
+
+  const handleStop = () => stopScratchSound();
+  document.addEventListener("mouseup", handleStop);
+  document.addEventListener("touchend", handleStop);
+
+  return () => {
+    document.removeEventListener("mouseup", handleStop);
+    document.removeEventListener("touchend", handleStop);
+    stopScratchSound(); // cleanup on unmount
+  };
+}, []);
+
+
+
+  const startScratchSound = () => {
+  if (scratchAudioRef.current) {
+    scratchAudioRef.current.currentTime = 0;
+    scratchAudioRef.current.play().catch(() => {});
+  }
+};
+
+const stopScratchSound = () => {
+  if (scratchAudioRef.current) {
+    scratchAudioRef.current.pause();
+    scratchAudioRef.current.currentTime = 0;
+  }
+};
 
   const handleCellScratch = (index: number) => {
     const newScratched = [...scratchedCells];
@@ -1050,7 +1082,11 @@ function ScratchOffCard({
                     height={56}
                     scratchPercent={40}
                     onScratchComplete={() => handleCellScratch(index)}
-                    onInitialTouch={onInitialCardTouch}
+                    onInitialTouch={() => {
+                      onInitialCardTouch?.();  
+                      startScratchSound();   
+                    }}
+
                   >
                     <div className="w-full h-full bg-yellow-400 text-black flex items-center justify-center p-0.5 overflow-hidden">
                       <div
@@ -1088,6 +1124,7 @@ function ScratchOffCard({
                       </div>
                     </div>
                   </ScratchCard>
+                  
                 )}
               </div>
             ))}

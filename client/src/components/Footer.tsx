@@ -24,7 +24,7 @@ export default function Footer() {
                 className="text-[#F76D46] hover:text-[#2C5CDC] transition-colors ml-1"
               >
                 <Phone className="inline mr-1" size={16} />
-                Call Now: (310) 295-6355
+                Call Now: (619) 871-2110
               </a>
             </p>
           </div>

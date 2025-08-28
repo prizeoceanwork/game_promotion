@@ -14,6 +14,7 @@ import {
   Unlock,
   Sparkles,
   Trophy,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,8 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import TermsAndConditions from "./TermsAndConditions";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -48,6 +51,7 @@ export default function RegistrationForm({
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
   const [showEmailWarning, setShowEmailWarning] = useState(false);
+  const [openModal, setOpenModal] = useState<"terms" | "privacy" | null>(null);
 
   // Fetch video requirement setting
   const { data: videoRequirementSetting } = useQuery({
@@ -284,7 +288,7 @@ export default function RegistrationForm({
                             <Input
                               {...field}
                               disabled={videoRequirementEnabled && !videoWatched}
-                              placeholder="(310) 295-6355"
+                              placeholder="(619) 871-2110"
                               onChange={(e) => {
                                 const formatted = formatPhoneNumber(
                                   e.target.value,
@@ -375,25 +379,53 @@ export default function RegistrationForm({
                   </div>
 
                   {/* Terms & Conditions */}
-                  <div className="text-center text-sm text-gray-600 mt-4">
-                    <p style={{ fontFamily: "Montserrat, sans-serif" }}>
-                      By registering, you agree to our
-                      <a href="#" className="text-[#2C5CDC] hover:underline">
-                        {" "}
-                        Terms & Conditions
-                      </a>{" "}
-                      and{" "}
-                      <a href="#" className="text-[#2C5CDC] hover:underline">
-                        Privacy Policy
-                      </a>
-                    </p>
-                  </div>
+                <div className="text-center text-sm text-gray-600 mt-4">
+  <p style={{ fontFamily: "Montserrat, sans-serif" }}>
+    By registering, you agree to our{" "}
+    <button
+      type="button"
+      onClick={() => setOpenModal("terms")}
+      className="text-[#2C5CDC] hover:underline"
+    >
+      Terms & Conditions
+    </button>{" "}
+    and{" "}
+    <button
+      type="button"
+      onClick={() => setOpenModal("privacy")}
+      className="text-[#2C5CDC] hover:underline"
+    >
+      Privacy Policy
+    </button>
+  </p>
+</div>
+
                 </form>
               </Form>
             </div>
           </div>
         </div>
       </div>
+
+      {openModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto relative p-6">
+      
+      {/* Close button */}
+      <button
+        onClick={() => setOpenModal(null)}
+        className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+      >
+        <X size={24} />
+      </button>
+
+      {/* Modal content */}
+      {openModal === "terms" && <TermsAndConditions />}
+      {openModal === "privacy" && <PrivacyPolicy />}
+    </div>
+  </div>
+)}
+
 
       {/* Eye-catching Email Already Exists Warning Popup */}
       {showEmailWarning && (
@@ -447,7 +479,7 @@ export default function RegistrationForm({
                   className="text-lg font-black text-[#F76D46] animate-bounce"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
-                  📞 (310) 295-6355
+                  📞 (619) 871-2110
                 </p>
               </div>
             </div>

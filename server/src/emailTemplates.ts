@@ -24,6 +24,7 @@ export interface WinnerEmailData {
 // Winner email template with brand colors
 export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
   return `
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,46 +99,47 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
             margin-bottom: 25px;
         }
        
-        .prize-section {
+       .prize-section {
             background: linear-gradient(135deg, #ffb22a 0%, #FFD700 100%);
             border-radius: 12px;
             padding: 25px;
             margin: 25px 0;
             color: #2c3e50;
-        }
-       
-        .prize-header {
+            }
+
+            .prize-header {
             font-size: 20px;
             font-weight: 800;
             color: #2C5CDC;
             margin-bottom: 15px;
             text-align: center;
-        }
-       
-        .prize-details {
-            margin-bottom: 12px;
+            }
+
+            .prize-details {
             display: flex;
             align-items: center;
+            font-size: small;
             justify-content: space-between;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.9);
             padding: 10px 15px;
             border-radius: 8px;
-            margin-bottom: 8px;
-        }
+            margin-bottom: 10px;
+            gap: 12px; /* space between label/value */
+            }
+
        
         .prize-label {
-            font-weight: 700;
-            color: #2C5CDC;
-            flex-shrink: 0;
-            width: 140px;
-        }
-       
-        .prize-value {
+            font-weight: bold;
             color: #2c3e50;
-            font-weight: 600;
+            flex-shrink: 0; /* prevent shrinking */
+            }
+
+            .prize-value {
             text-align: right;
-            flex-grow: 1;
-        }
+            flex: 1; /* let value take remaining space */
+            color: #333;
+            font-weight: 500;
+            }
        
         .contact-section {
             background: linear-gradient(135deg, #2C5CDC 0%, #F76D46 100%);
@@ -160,6 +162,8 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
             margin-bottom: 15px;
             line-height: 1.6;
             text-align: center;
+            text-decoration: none;
+            color: #ffffff
         }
        
         .phone-number {
@@ -255,7 +259,11 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
            
             .prize-details {
                 flex-direction: column;
-                text-align: center;
+                align-items: flex-start;
+            }
+            .prize-value {
+                text-align: left;
+                margin-top: 4px;
             }
            
             .prize-label {
@@ -263,9 +271,7 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
                 margin-bottom: 5px;
             }
            
-            .prize-value {
-                text-align: center;
-            }
+            
         }
     </style>
 </head>
@@ -319,7 +325,10 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
               <p class="contact-text" style="margin-top: 20px; font-size: 14px;">
                 When you call, please provide:<br>
                 • Your full name: <span style="color: white; text-decoration: none;">${data.userName}</span><br>
-                • Your email address: <span style="color: white; text-decoration: none;">${data.userEmail}</span><br>
+                • Your email address: <span style="color:#ffffff; text-decoration:none; font-weight:600;">
+                ${data.userEmail.replace("@", "&#64;")}
+                </span>
+                <br>
                 • Reference this prize notification
             </p>
             </div>
@@ -341,8 +350,8 @@ export const createWinnerEmailTemplate = (data: WinnerEmailData) => {
        
         <div class="footer">
             <p class="footer-text">
-                For inquiries, contact us at <a href="tel:+16198712110" class="contact-link">+1 (619) 871-2110</a><br>
-                Visit our website: <a href="https://doneforyoupros.com/english" class="contact-link">doneforyoupros.com</a>
+                For inquiries, contact us at <a href="tel:+16198712110"  style="color:#ffffff; text-decoration:none; font-weight:600;">+1 (619) 871-2110</a><br>
+                Visit our website: <a href="https://doneforyoupros.com/english"  style="color:#ffffff; text-decoration:none; font-weight:600;">doneforyoupros.com</a>
             </p>
         </div>
     </div>

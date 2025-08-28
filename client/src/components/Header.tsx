@@ -23,7 +23,7 @@ export default function Header() {
                 className="font-bold text-sm"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                CALL NOW: (310) 295-6355
+                CALL NOW: (619) 871-2110
               </span>
             </div>
             <a

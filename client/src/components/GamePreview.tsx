@@ -1,29 +1,29 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import gameCardImage from "../assets/homepage.png";
-import { apiRequest } from "@/lib/queryClient";
+// import { apiRequest } from "@/lib/queryClient";
 
-type StatsResponse = {
-  registrationCount: number;
-};
+// type StatsResponse = {
+//   registrationCount: number;
+// };
 
 
 
 export default function GamePreview() {
-  const { data: stats } = useQuery<StatsResponse>({
-    queryKey: ["/api/stats"],
-    queryFn: async () => {
-      const res = await apiRequest("GET" ,"/api/stats");
-      if (!res.ok) throw new Error("Failed to fetch stats");
-      return res.json();
-    },
-  });
+  // const { data: stats } = useQuery<StatsResponse>({
+  //   queryKey: ["/api/stats"],
+  //   queryFn: async () => {
+  //     const res = await apiRequest("GET" ,"/api/stats");
+  //     if (!res.ok) throw new Error("Failed to fetch stats");
+  //     return res.json();
+  //   },
+  // });
 
   return (
     <section className="bg-gradient-to-br from-yellow-400 via-orange-400 to-red-500 py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-            $5 MILLION INSTANT PRIZES
+          <h2 className="text-4xl uppercase md:text-5xl font-black text-white mb-4">
+           Homeowners all over the country are wining our amazing prizes! Are you next?
           </h2>
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
             IT'S TIME TO PLAY OUR SCRATCH & WIN GAME
@@ -48,16 +48,7 @@ export default function GamePreview() {
           {/* Trust Indicator */}
           <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-4xl mx-auto">
             <p className="text-[hsl(225,47%,32%)] font-bold text-lg mb-2">
-              Our 20 Connection New Parts Installations Program
-            </p>
-            <p className="text-[hsl(225,47%,32%)] font-semibold text-xl">
-              is already Protecting{" "}
-               <span className="text-[hsl(16,100%,64%)]">
-                {stats?.registrationCount
-                  ? `${Math.max(300000, stats.registrationCount).toLocaleString()}+`
-                  : "300,000+"}
-              </span>{" "}
-              Home Owners nationwide
+             We've already replaced over 1 Million old appliance connection parts. It's your turn!
             </p>
           </div>
         </div>

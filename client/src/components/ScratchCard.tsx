@@ -71,7 +71,7 @@ export default function ScratchCard({
     // Always trigger callback if provided - this handles blocking logic
     if (onInitialTouch) {
       onInitialTouch();
-      return; // Don't start scratching when callback is provided
+     
     }
     
     setIsDrawing(true);
