@@ -88,19 +88,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/register", async (req, res) => {
     try {
       const validatedData = insertRegistrationSchema.parse(req.body);
+      const allowedEmail = "gamedemo@gmail.com"
+
       
       // Check duplicate email setting
       const emailCheckSetting = await storage.getSetting('duplicate_email_check');
       const emailCheckEnabled = emailCheckSetting?.value === 'true';
       
-      if (emailCheckEnabled) {
-        const existingRegistration = await storage.getRegistrationByEmail(validatedData.email);
-        if (existingRegistration) {
-          return res.status(400).json({ 
-            message: "Email already registered. Please use a different email address." 
-          });
-        }
+    if (
+      emailCheckEnabled &&
+      validatedData.email.toLowerCase() !== allowedEmail.toLowerCase()
+    ) {
+      const existingRegistration = await storage.getRegistrationByEmail(
+        validatedData.email
+      );
+      if (existingRegistration) {
+        return res.status(400).json({
+          message: "Email already registered. Please use a different email address.",
+        });
       }
+    }
       
       const registration = await storage.createRegistration(validatedData);
       res.json({ 
@@ -232,7 +239,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         phoneNumber: z.string().min(1)
       });
 
-      const validatedData = winnerEmailSchema.parse(req.body);
+    const validatedData = winnerEmailSchema.parse(req.body);
+
+    const blockedEmail = "gamedemo@gmail.com";
+
+    // Skip sending if it's the blocked email
+    if (validatedData.userEmail === blockedEmail) {
+      return res.json({
+        message: `Skipped sending email to ${blockedEmail} (blocked email).`
+      });
+    }
       
       const success = await sendWinnerEmail(validatedData);
       

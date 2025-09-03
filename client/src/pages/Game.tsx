@@ -52,24 +52,7 @@ export default function Game() {
   const [userRegistrationData, setUserRegistrationData] = useState<any>(null);
   
 
- useEffect(() => {
-    const hlsUrl =
-      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
 
-    const video = document.getElementById("game-video") as HTMLVideoElement;
-
-    if (video) {
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(hlsUrl);
-        hls.attachMedia(video);
-        console.log("video playing...");
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        // Safari native HLS
-        video.src = hlsUrl;
-      }
-    }
-  }, []);
   
   useEffect(() => {
     // Check if user came from registration
@@ -170,6 +153,10 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
 
       return () => clearInterval(interval);
     }, []);
+
+
+   
+
 
     const confettiPieces = Array.from({ length: 80 }, (_, i) => {
       // Use only brand colors
@@ -361,6 +348,23 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
     setWinnerEmail("");
     setWinnerName("");
   };
+
+   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+useEffect(() => {
+  if (gameComplete && winnerCard && videoRef.current) {
+    const hlsUrl =
+      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(videoRef.current);
+    } else if (videoRef.current.canPlayType("application/vnd.apple.mpegurl")) {
+      videoRef.current.src = hlsUrl;
+    }
+  }
+}, [gameComplete, winnerCard]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -669,6 +673,8 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         </div>
       )}
 
+
+
       {/* Winner Modal */}
       {gameComplete && winnerCard && (
   <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-3"
@@ -685,7 +691,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
          {/* 🎥 Video section */}
         <div className="my-4">
           <video
-            id="game-video"
+         ref={videoRef}
             controls
             className="w-full rounded-lg shadow-md"
             poster={videoThumbnail}

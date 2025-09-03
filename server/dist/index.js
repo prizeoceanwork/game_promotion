@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
-     origin: ['https://amazingworldmedia.net'],
+    origin: ['https://amazingworldmedia.net'],
     credentials: true
 }));
 app.set('trust proxy', 1);
@@ -32,10 +32,10 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 5, // 5 hours session cookie
-      secure: true, // set true if HTTPS
-      httpOnly: true,
-      sameSite: "none", 
+        maxAge: 1000 * 60 * 60 * 5, // 5 hours session cookie
+        secure: true, // set true if HTTPS
+        httpOnly: true,
+        sameSite: "none",
     },
 }));
 app.use((req, res, next) => {
