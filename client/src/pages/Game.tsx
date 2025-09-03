@@ -6,7 +6,6 @@ import logoPath from "../assets/logo.png";
 import { apiRequest } from "@/lib/queryClient";
 import bgGame from "../assets/bgWheel.png";
 import wayCome from "../font/WayCome.otf"
-import videoFile from "../assets/Michael Patrick - Part 2 D4U Scratch & Win.mp4";
 import videoThumbnail from "../assets/poster.png";
 import Hls from "hls.js"; 
 import scratchSound from "../assets/assets_sounds_sound_scratch.mp3";
@@ -691,7 +690,6 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
             className="w-full rounded-lg shadow-md"
             poster={videoThumbnail}
           >
-            <source src={videoFile} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
         </div>
