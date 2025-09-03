@@ -64,6 +64,7 @@ export default function Game() {
         const hls = new Hls();
         hls.loadSource(hlsUrl);
         hls.attachMedia(video);
+        console.log("video....")
       } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
         // Safari native HLS
         video.src = hlsUrl;
