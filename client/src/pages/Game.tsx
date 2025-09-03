@@ -55,7 +55,7 @@ export default function Game() {
 
  useEffect(() => {
     const hlsUrl =
-      "https://res.cloudinary.com/dziy5sjas/video/upload/v1756465516/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
+      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
 
     const video = document.getElementById("game-video") as HTMLVideoElement;
 
