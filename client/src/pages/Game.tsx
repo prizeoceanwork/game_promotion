@@ -53,23 +53,33 @@ export default function Game() {
   
 
  useEffect(() => {
-    const hlsUrl =
-      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
+  const hlsUrl =
+    "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
 
-    const video = document.getElementById("game-video") as HTMLVideoElement;
+  const fallbackMp4 =
+    "https://res.cloudinary.com/dziy5sjas/video/upload/v1756465516/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.mp4";
 
-    if (video) {
-      if (Hls.isSupported()) {
-        const hls = new Hls();
-        hls.loadSource(hlsUrl);
-        hls.attachMedia(video);
-        console.log("video....")
-      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-        // Safari native HLS
-        video.src = hlsUrl;
-      }
+  const video = document.getElementById("game-video") as HTMLVideoElement;
+
+  if (video) {
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (data.fatal) {
+          console.warn("HLS failed, falling back to MP4");
+          video.src = fallbackMp4;
+        }
+      });
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = hlsUrl; // Safari native
+    } else {
+      video.src = fallbackMp4; // fallback for older browsers
     }
-  }, []);
+  }
+}, []);
   
   useEffect(() => {
     // Check if user came from registration
