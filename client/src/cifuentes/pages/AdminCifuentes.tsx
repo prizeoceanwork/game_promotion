@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-
 import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
 
 
