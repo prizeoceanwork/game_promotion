@@ -8,17 +8,17 @@ export default function Headersoflopro() {
       <div className="container mx-auto px-4 py-3">
        <div className="flex items-center justify-between">
           {/* Logo Section */}
-          <div className="flex py-5 items-center">
+          <div className="flex py-5 gap-3 items-center">
 
              <img
               src={companyLogo}
               alt="Done For You Pros"
-              className="h-12 mt-[-15px] md:h-16 w-auto object-contain"
+              className="h-12 mt-[-25px] md:h-18 w-auto object-contain"
             />
             <img
               src={logoImage}
               alt="Done For You Pros"
-              className="h-12 md:h-16 w-auto object-contain "
+              className="h-12 md:h-18 w-auto object-contain "
             />
             
 
