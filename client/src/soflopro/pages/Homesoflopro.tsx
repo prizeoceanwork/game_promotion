@@ -27,7 +27,6 @@ export default function HomeSoflopro() {
           <div className="max-w-10xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               MEET OUR INSTALLATION PROS
-              <span className="block text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[#4150FF] mt-2">IS DONE RIGHT!</span>
             </h1>
             
             {/* Star Rating */}
