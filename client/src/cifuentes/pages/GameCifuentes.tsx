@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import ScratchCardCifuentes from "../components/ScratchCardCifuentes";
 import logoPath from "../assets/logo.png";
 import { apiRequest } from "@/lib/queryClient";
