@@ -425,20 +425,20 @@ useEffect(() => {
       `}</style>
       {/* Header Section with Logo */}
       <div className="px-4 py-4 " style={{ backgroundColor: "#ffb22a" }}>
-        <div className="flex items-center px-32 justify-between max-w-8xl mx-auto">
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center  sm:px-32 justify-between max-w-8xl mx-auto">
+          <div className="flex  items-center space-x-4">
             <div className="bg-white p-2 rounded-lg ">
               <img
                 src={companyLogo1}
                 alt="Done For You Pros"
-                className="h-16 md:h-20 w-auto"
+                className="h-13 sm:h-16 md:h-20 w-auto"
               />
             </div>
             <div className="bg-white p-2 rounded-lg ">
               <img
                 src={logoPath}
                 alt="Done For You Pros"
-                className="h-16 md:h-20 w-auto"
+                className="h-13 sm:h-16 md:h-20 w-auto"
               />
             </div>
       

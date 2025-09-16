@@ -14,17 +14,17 @@ export default function HeaderCifuentes() {
              <img
               src={companyLogo1}
               alt="Done For You Pros"
-              className="h-12 md:h-16 w-auto object-contain"
+              className="h-8 sm:h-12 md:h-16 w-auto object-contain"
             />
             <img
               src={logoImage}
               alt="Done For You Pros"
-              className="h-12 md:h-16 w-auto object-contain mr-3"
+              className="h-8 sm:h-12 md:h-16 w-auto object-contain mr-3"
             />
             <img
               src={companyLogo2}
               alt="Done For You Pros"
-              className="h-12 md:h-15 w-auto object-contain"
+              className="h-8 sm:h-12 md:h-15 w-auto object-contain"
             />
 
           </div>
