@@ -76,7 +76,7 @@ export default function Gamesoflopro() {
     const regData = localStorage.getItem('userRegistrationData');
     if (!regData) {
       // If no registration data, redirect to home
-      setLocation('/');
+      setLocation('/soflopro');
       return;
     }
     
@@ -376,6 +376,23 @@ useEffect(() => {
       hls.attachMedia(videoRef.current);
     } else if (videoRef.current.canPlayType("application/vnd.apple.mpegurl")) {
       videoRef.current.src = hlsUrl;
+    }
+  }
+}, [gameComplete, winnerCard]);
+
+const newVideoRef = useRef<HTMLVideoElement | null>(null);
+
+useEffect(() => {
+  if (gameComplete && winnerCard && newVideoRef.current) {
+    const hlsUrl =
+      "https://res.cloudinary.com/dziy5sjas/video/upload/sp_auto/v1/Michael_Patrick_-_D4U_Scratch_Win_Part_2_NEW_V2_1_ycelxn.m3u8";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(newVideoRef.current);
+    } else if (newVideoRef.current.canPlayType("application/vnd.apple.mpegurl")) {
+      newVideoRef.current.src = hlsUrl;
     }
   }
 }, [gameComplete, winnerCard]);
@@ -707,30 +724,24 @@ useEffect(() => {
   >
     <div className="bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF]  p-3 rounded-2xl w-full max-w-md mx-3 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div className="bg-white rounded-xl p-4 text-center relative overflow-hidden">
-        {/* Trophy and confetti */}
-        <div className="text-3xl mb-2 animate-bounce">🏆</div>
-        <div className="text-2xl mb-2">🎉 🎊 🎉</div>
-        <div className="text-2xl mb-2 ">
-          WINNER
-        </div>
 
-        {/* 🎥 Video section */}
-        <div className="my-4">
-          <video
-             ref={videoRef}
-            controls
-            className="w-full rounded-lg shadow-md"
-            poster={videoThumbnail}
-          >
-            Your browser does not support the video tag.
-          </video>
-        </div>
+       
+        {/* 🎥 First video */}
+              <div className="my-4">
+                <video
+                  ref={newVideoRef}
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  className="w-full rounded-lg shadow-md"
+                  poster={videoThumbnail}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
 
-        {/* New professionals section */}
-        <div className="bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF]  text-white p-3 rounded-lg mb-4 shadow-md">
-          <h3 className="text-lg font-bold">MEET OUR AMAZING SAN DIEGO INSTALLATION PROFESSIONALS</h3>
-        </div>
-
+       
         {/* Call-to-action */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg mb-3 shadow-md">
           <h4 className="text-base mb-2">CLAIM YOUR PRIZE!</h4>
@@ -752,6 +763,21 @@ useEffect(() => {
             </p>
           </div>
         </div>
+
+        {/* New professionals section */}
+        <div className="bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF]  text-white p-3 rounded-lg mb-4 shadow-md">
+          <h3 className="text-lg font-bold">MEET OUR AMAZING SAN DIEGO INSTALLATION PROFESSIONALS</h3>
+        </div>
+         <div className="my-4">
+                <video
+                  ref={videoRef}
+                  controls
+                  className="w-full rounded-lg shadow-md"
+                  poster={videoThumbnail}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
 
         {/* Button */}
         <button

@@ -83,7 +83,7 @@ export default function AdminSoflopro() {
   // Redirect to login if not authenticated
   useEffect(() => {
     if (authError && !authLoading) {
-      setLocation("/login");
+      setLocation("/soflopro/login");
     }
   }, [authError, authLoading, setLocation]);
 
@@ -97,7 +97,7 @@ export default function AdminSoflopro() {
       const response = await apiRequest("GET", "/api/admin/registrations");
       if (!response.ok) {
         if (response.status === 401) {
-          setLocation("/login");
+          setLocation("/soflopro/login");
         }
         throw new Error("Failed to fetch registrations");
       }
@@ -524,49 +524,51 @@ export default function AdminSoflopro() {
       {/* Enhanced Header with Logo */}
       <div className="bg-gradient-to-br from-[#FEA310] to-[#4150FF]  shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-4 space-y-4 md:space-y-0">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 w-full md:w-auto">
               {/* Logo */}
-              <div className="bg-white p-3 rounded-xl shadow-md">
+               <div className="flex items-center space-x-2 mb-2 sm:mb-0">
+              <div className="bg-white p-2 rounded-lg">
                 <img
                   src={companyLogo}
                   alt="Done For You Pros"
-                  className="h-12 w-auto"
+                  className="h-8 sm:h-10 w-auto"
                 />
               </div>
-              <div className="bg-white p-3 rounded-xl shadow-md">
+              <div className="bg-white p-2 rounded-lg">
                 <img
                   src={logoPath}
                   alt="Done For You Pros"
-                  className="h-12 w-auto"
+                  className="h-8 sm:h-10 w-auto"
                 />
               </div>
+              </div>
               <div>
-                <h1 className="text-3xl font-bold text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <h1 className="text-3xl sm:text-2xl md:text-3xl font-bold text-white" style={{ fontFamily: "Montserrat, sans-serif" }}>
                   Admin Dashboard
                 </h1>
-                <p className="text-blue-100 mt-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <p className="text-blue-100 mt-1 text-sm sm:text-base" style={{ fontFamily: "Montserrat, sans-serif" }}>
                   Welcome {authData?.user?.username?.split('@')[0]} - Control Center
                 </p>
               </div>
             </div>
             
-            <div className="flex items-center space-x-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-2 sm:space-y-0 w-full md:w-auto">
               {/* Live Stats Badge */}
-              <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full border border-white/30">
+              <div className="flex items-center justify-center space-x-2 bg-white/20 backdrop-blur-sm text-white px-3 py-2 rounded-full border border-white/30 w-full sm:w-auto">
                 <Activity className="w-4 h-4 animate-pulse" />
-                <span className="font-semibold" style={{ fontFamily: "Montserrat, sans-serif" }}>
+                <span className="font-semibold text-sm sm:text-base" style={{ fontFamily: "Montserrat, sans-serif" }}>
                   {totalRegistrations} Users
                 </span>
               </div>
               
               {/* Quick Actions */}
-              <div className="flex space-x-2">
+              <div className="flex flex-col sm:flex-row w-full sm:w-auto space-y-2 sm:space-y-0 sm:space-x-2">
                 <Button
                   onClick={exportToCSV}
                   variant="outline"
                   size="sm"
-                  className="bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm"
+                  className="w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm"
                 >
                   <FileSpreadsheet className="w-4 h-4 mr-2" />
                   Export CSV
@@ -575,7 +577,7 @@ export default function AdminSoflopro() {
                   onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/admin/registrations"] })}
                   variant="outline"
                   size="sm"
-                  className="bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm"
+                  className="w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Refresh
@@ -585,12 +587,12 @@ export default function AdminSoflopro() {
               {/* Settings */}
               <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <DialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm">
+                  <Button variant="outline" size="sm" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm">
                     <Settings className="w-4 h-4 mr-2" />
                     Settings
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
+                <DialogContent className="sm:max-w-md w-full">
                   <DialogHeader>
                     <DialogTitle className="flex items-center space-x-2" style={{ fontFamily: "Montserrat, sans-serif", color: "#2C5CDC" }}>
                       <Settings className="w-5 h-5" />
@@ -663,7 +665,7 @@ export default function AdminSoflopro() {
                 onClick={() => logoutMutation.mutate()}
                 variant="outline"
                 size="sm"
-                className="bg-red-500/20 cursor-pointer hover:bg-red-500/30 border-red-300/50 text-red-100 hover:text-white backdrop-blur-sm"
+                className="w-full sm:w-auto bg-red-500/20 cursor-pointer hover:bg-red-500/30 border-red-300/50 text-red-100 hover:text-white backdrop-blur-sm"
                 disabled={logoutMutation.isPending}
               >
                 <LogOut className="w-4 h-4 mr-2" />

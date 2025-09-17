@@ -7,7 +7,7 @@ interface VideoSectionProps {
   onVideoComplete: () => void;
 }
 
-export default function VideoSectionsoflopro({ onVideoComplete }: VideoSectionProps) {
+export default function VideoSectionApplianceGallery({ onVideoComplete }: VideoSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [videoCompleted, setVideoCompleted] = useState(false);
@@ -54,10 +54,10 @@ export default function VideoSectionsoflopro({ onVideoComplete }: VideoSectionPr
   };
 
   return (
-    <section className="bg-white py-12" >
+    <section className="bg-white py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#FEC76B] via-[#FEA310] to-[#4150FF] text-white text-center py-4 md:py-6 rounded-t-lg shadow-lg">
+          <div className="bg-[#DEB406] text-white text-center py-4 md:py-6 rounded-t-lg shadow-lg">
             <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-3 px-4">
               <PlayCircle className="animate-pulse flex-shrink-0" size={24} />
               <h2 className="text-base md:text-2xl font-bold" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -86,16 +86,16 @@ export default function VideoSectionsoflopro({ onVideoComplete }: VideoSectionPr
                 >
                   <div className="bg-white bg-opacity-90 rounded-full p-6 shadow-2xl">
                     {isLoading ? (
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#F76D46]"></div>
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#10155E]"></div>
                     ) : (
-                      <Play className="text-4xl text-[#4150FF] ml-1" size={48} />
+                      <Play className="text-4xl text-[#FFDF20] ml-1" size={48} />
                     )}
                   </div>
                 </button>
               )}
 
               <div
-                className="absolute bottom-0 left-0 h-1 bg-[hsl(16,100%,64%)] transition-all duration-300"
+                className="absolute bottom-0 left-0 h-1 bg-[#DEB406] transition-all duration-300"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>

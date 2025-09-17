@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
+import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/FAUCETS AND FIXTURES LOGO.png";
 import logo from "../assets/logo.png";
 
 
@@ -43,7 +43,7 @@ type Setting = {
   createdAt: string;
 };
 
-export default function AdminCifuentes() {
+export default function AdminApplianceGallery() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [, setLocation] = useLocation();
@@ -83,7 +83,7 @@ export default function AdminCifuentes() {
   // Redirect to login if not authenticated
   useEffect(() => {
     if (authError && !authLoading) {
-      setLocation("/cifuentes/login");
+      setLocation("/appliancegallery/login");
     }
   }, [authError, authLoading, setLocation]);
 
@@ -97,7 +97,7 @@ export default function AdminCifuentes() {
       const response = await apiRequest("GET", "/api/admin/registrations");
       if (!response.ok) {
         if (response.status === 401) {
-          setLocation("/cifuentes/login");
+          setLocation("/appliancegallery/login");
         }
         throw new Error("Failed to fetch registrations");
       }
@@ -120,7 +120,7 @@ export default function AdminCifuentes() {
         title: "Success",
         description: "Logged out successfully",
       });
-      setLocation("/cifuentes/login");
+      setLocation("/appliancefallery/login");
     },
   });
 
@@ -522,8 +522,8 @@ export default function AdminCifuentes() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50">
       {/* Enhanced Header with Logo */}
-      <div className="bg-gradient-to-r from-[#DEB406] to-[#10155E] shadow-xl">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#DEB406]  shadow-xl">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-4 space-y-4 md:space-y-0">
       
       {/* Left Section (Logo + Title) */}
@@ -643,7 +643,7 @@ export default function AdminCifuentes() {
                     <div className="flex space-x-2 pt-4">
                       <Button
                         type="submit"
-                        className="flex-1 bg-gradient-to-r from-[#FEA310] to-[#4150FF] hover:from-[#4150FF] hover:to-[#FEA310] text-white font-semibold"
+                        className="flex-1 bg-[#FEA310] hover:bg-[#FFDF20] text-white font-semibold"
                         disabled={updateCredentialsMutation.isPending}
                         style={{ fontFamily: "Montserrat, sans-serif" }}
                       >
@@ -689,19 +689,19 @@ export default function AdminCifuentes() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" >
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full grid-cols-4 lg:grid-cols-4 bg-white/50 backdrop-blur-sm border border-gray-200">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#10155E] data-[state=active]:text-white">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#FFDF20] data-[state=active]:text-white">
               <BarChart3 className="w-4 h-4 mr-2" />
               Overview
             </TabsTrigger>
-            <TabsTrigger value="users" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#10155E] data-[state=active]:text-white">
+            <TabsTrigger value="users" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#FFDF20] data-[state=active]:text-white">
               <Users className="w-4 h-4 mr-2" />
               Users
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#10155E] data-[state=active]:text-white">
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#FFDF20] data-[state=active]:text-white">
               <TrendingUp className="w-4 h-4 mr-2" />
               Analytics
             </TabsTrigger>
-            <TabsTrigger value="tools" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#10155E] data-[state=active]:text-white">
+            <TabsTrigger value="tools" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#DEB406]  data-[state=active]:to-[#FFDF20] data-[state=active]:text-white">
               <Settings className="w-4 h-4 mr-2" />
               Tools
             </TabsTrigger>
@@ -802,7 +802,7 @@ export default function AdminCifuentes() {
                         <div className="flex items-center space-x-2">
                           <div className="w-32 bg-gray-200 rounded-full h-2">
                             <div 
-                              className="bg-gradient-to-r from-[#DEB406]  to-[#10155E] h-2 rounded-full transition-all duration-500"
+                              className="bg-gradient-to-r from-[#DEB406]  to-[#FFDF20] h-2 rounded-full transition-all duration-500"
                               style={{ width: `${Math.max((day.count / Math.max(...getRegistrationTrend().map(d => d.count), 1)) * 100, 5)}%` }}
                             />
                           </div>
@@ -828,7 +828,7 @@ export default function AdminCifuentes() {
                     {registrations?.slice(0, 5).map((reg, index) => (
                       <div key={index} className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
                         <div className="flex-shrink-0">
-                          <div className="w-8 h-8 bg-gradient-to-r from-[#DEB406]  to-[#10155E] rounded-full flex items-center justify-center text-white text-sm font-bold">
+                          <div className="w-8 h-8 bg-gradient-to-r from-[#DEB406]  to-[#FFDF20] rounded-full flex items-center justify-center text-white text-sm font-bold">
                             {reg.name.charAt(0).toUpperCase()}
                           </div>
                         </div>
@@ -1005,7 +1005,7 @@ export default function AdminCifuentes() {
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-gradient-to-r from-[#DEB406]  to-[#10155E] rounded-full flex items-center justify-center text-white font-bold">
+                                <div className="w-10 h-10 bg-gradient-to-r from-[#DEB406]  to-[#FFDF20] rounded-full flex items-center justify-center text-white font-bold">
                                   {registration.name.charAt(0).toUpperCase()}
                                 </div>
                                 <div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "../../components/ui/button";
-import ScratchCardCifuentes from "../components/ScratchCardCifuentes";
+import ScratchCardApplianceGallery from "../components/ScratchCardApplianceGallery";
 import logoPath from "../assets/logo.png";
 import { apiRequest } from "@/lib/queryClient";
 import bgGame from "../assets/bgWheel.png";
@@ -10,7 +10,7 @@ import videoThumbnail from "../assets/poster.png";
 import Hls from "hls.js"; 
 import scratchSound from "../assets/assets_sounds_sound_scratch.mp3";
 import { useRef } from "react";
-import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
+import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/FAUCETS AND FIXTURES LOGO.png";
 
 
 
@@ -23,7 +23,7 @@ interface ScratchCardData {
   prizeValues: string[];
 }
 
-export default function GameCifuentes() {
+export default function GameApplianceGallery() {
   // Add custom font style for game page
   const wayComeFontStyle = {
     fontFamily: "WayCome, sans-serif",
@@ -76,7 +76,7 @@ export default function GameCifuentes() {
     const regData = localStorage.getItem('userRegistrationData');
     if (!regData) {
       // If no registration data, redirect to home
-      setLocation('/cifuentes');
+      setLocation('/appliancegallery');
       return;
     }
     
@@ -85,7 +85,7 @@ export default function GameCifuentes() {
       setUserRegistrationData(parsedData);
     } catch (error) {
       // If invalid data, redirect to home
-      setLocation('/');
+      setLocation('/appliancegallery');
     }
   }, [setLocation]);
   
@@ -150,7 +150,7 @@ export default function GameCifuentes() {
     },
   ]);
   const [gameComplete, setGameComplete] = useState(false); 
-const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
+const [winnerCard, setWinnerCard] = useState<ScratchCardData | null >(null);
 
   const [firstCardComplete, setFirstCardComplete] = useState(false);
   const [showEmailPrompt, setShowEmailPrompt] = useState(false);
@@ -445,11 +445,11 @@ useEffect(() => {
       <div className="px-4 py-4 " style={{ backgroundColor: "#ffb22a" }}>
         <div className="flex items-center sm:px-32 justify-between max-w-8xl mx-auto">
           <div className="flex items-center space-x-1">
-            <div className="bg-white p-2 rounded-lg  ">
+            <div className="bg-white p-2 rounded-lg py-4  ">
               <img
                 src={companyLogo1}
                 alt="Done For You Pros"
-                className="h-14 sm:h-16 md:h-20 w-auto object-contain"
+                className="h-14 sm:h-16 md:h-15  w-auto object-contain"
               />
             </div>
             <div className="bg-white p-2 rounded-lg ">
@@ -513,7 +513,7 @@ useEffect(() => {
             className="text-2xl md:text-2xl lg:text-2xl font-bold"
             style={{
               ...wayComeFontStyle,
-              color: "#10155E",
+              color: "#FFDF20",
               letterSpacing: "1px",
             }}
           >
@@ -602,7 +602,7 @@ useEffect(() => {
       {/* Lose Popup for First Card */}
       {showLosePopup && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-          <div className="bg-gradient-to-br from-[#DEB406] via-[#DEB406]  to-[#10155E] p-4 rounded-3xl max-w-md w-full mx-4 shadow-2xl animate-float">
+          <div className="bg-[#DEB406] p-4 rounded-3xl max-w-md w-full mx-4 shadow-2xl animate-float">
             <div className="bg-white rounded-2xl p-6 text-center">
               
               <h3
@@ -649,7 +649,7 @@ useEffect(() => {
       {/* Email Collection Prompt */}
       {showEmailPrompt && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-3 sm:p-4 md:p-6">
-          <div className="bg-gradient-to-br from-[#DEB406] via-[#DEB406]  to-[#10155E] p-3 sm:p-4 md:p-5 rounded-3xl max-w-sm sm:max-w-md w-full mx-3 sm:mx-4 shadow-2xl">
+          <div className="bg-[#DEB406]  p-3 sm:p-4 md:p-5 rounded-3xl max-w-sm sm:max-w-md w-full mx-3 sm:mx-4 shadow-2xl">
             <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-7 text-center">
               <div className="text-4xl sm:text-5xl mb-4 animate-bounce">🎉</div>
               
@@ -714,7 +714,7 @@ useEffect(() => {
       )}
 
       {/* Winner Modal */}
-  {gameComplete && winnerCard && (
+      {gameComplete && winnerCard && (
         <div
           className="fixed inset-0 bg-black flex items-center justify-center z-50 p-3"
           style={{
@@ -795,7 +795,6 @@ useEffect(() => {
           </div>
         </div>
       )}
-
 
 
       {/* Confetti */}
@@ -1146,7 +1145,7 @@ const stopScratchSound = () => {
                     </div>
                   </div>
                 ) : (
-                  <ScratchCardCifuentes
+                  <ScratchCardApplianceGallery
                     width={56} // w-14 = 56px
                     height={56}
                     scratchPercent={40}
@@ -1192,7 +1191,7 @@ const stopScratchSound = () => {
                         )}
                       </div>
                     </div>
-                  </ScratchCardCifuentes>
+                  </ScratchCardApplianceGallery>
                   
                 )}
               </div>

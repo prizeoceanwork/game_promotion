@@ -1,23 +1,24 @@
 import { Phone } from "lucide-react";
 import logoImage from "../assets/logo.png";
-import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
+import companyLogo2 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/FAUCETS AND FIXTURES LOGO.png";
 
-export default function FooterCifuentes() {
+export default function FooterApplianceGallery() {
   return (
     <footer className="bg-white text-gray-700 py-8">
       <div className="container mx-auto px-4">
         <div className="text-center">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <img
-              src={companyLogo1}
-              alt="Done For You Pros"
-              className="h-12 md:h-16 w-auto object-contain"
-            />
+           
             <img
               src={logoImage}
               alt="Done For You Pros"
               className="h-12 md:h-16 w-auto object-contain mr-3"
+            />
+            <img
+              src={companyLogo2}
+              alt="Done For You Pros"
+              className="h-12 md:h-15 w-auto object-contain"
             />
           </div>
           

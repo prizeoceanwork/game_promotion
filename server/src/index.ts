@@ -39,9 +39,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 5, // 5 hours session cookie
-      secure: true, // set true if HTTPS
+      secure: false, // set true if HTTPS
       httpOnly: true,
-      sameSite: "none",
+      // sameSite: "none",
     },
   })
 );

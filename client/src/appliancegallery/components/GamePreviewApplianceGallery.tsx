@@ -1,29 +1,16 @@
-// import { useQuery } from "@tanstack/react-query";
 import gameCardImage from "../assets/homepage.png";
-// import { apiRequest } from "@/lib/queryClient";
-
-// type StatsResponse = {
-//   registrationCount: number;
-// };
 
 
 
-export default function GamePreviewsoflopro() {
-  // const { data: stats } = useQuery<StatsResponse>({
-  //   queryKey: ["/api/stats"],
-  //   queryFn: async () => {
-  //     const res = await apiRequest("GET" ,"/api/stats");
-  //     if (!res.ok) throw new Error("Failed to fetch stats");
-  //     return res.json();
-  //   },
-  // });
+export default function GamePreviewApplianceGallery() {
+ 
 
   return (
-    <section className="bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF]  py-16" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+    <section className="bg-[#DEB406]  py-16" style={{ fontFamily: 'Montserrat, sans-serif' }}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl uppercase md:text-5xl font-black text-white mb-4">
-           Homeowners all over the country are wining our amazing prizes! Are you next?
+           Homeowners all over the country are winning our amazing prizes! Are you next?
           </h2>
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
             IT'S TIME TO PLAY OUR SCRATCH & WIN GAME
@@ -46,9 +33,9 @@ export default function GamePreviewsoflopro() {
           </div>
 
           {/* Trust Indicator */}
-          <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-5xl mx-auto">
-            <p className="text-[hsl(225,47%,32%)] font-bold text-lg mb-2">
-           OUR SHARED VISION TO PROVIDE HOMEOWNERS EXCEPTIONAL SERVICES BROUGHT US TOGETHER!
+         <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-5xl mx-auto">
+            <p className="text-[#FFDF20] font-bold text-lg mb-2">
+             OUR SHARED VISION TO PROVIDE HOMEOWNERS EXCEPTIONAL SERVICES BROUGHT US TOGETHER!
             </p>
           </div>
         </div>

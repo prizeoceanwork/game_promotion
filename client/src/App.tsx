@@ -20,7 +20,13 @@ import LoginSoflopro from "./soflopro/pages/LoginSoflopro";
 import AdminSoflopro from "./soflopro/pages/Adminsoflopro";
 import GameSoflopro from "./soflopro/pages/Gamesoflopro";
 
-function Router() {
+import ApplianceGallery from "./appliancegallery/ApplianceGallery"
+import LoginApplianceGallery from "./appliancegallery/pages/LoginApplianceGallery";
+import AdminApplianceGallery from "./appliancegallery/pages/AdminApplianceGallery";
+import GameApplianceGallery from "./appliancegallery/pages/GameApplianceGallery";
+
+
+function Router() { 
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -31,10 +37,16 @@ function Router() {
        <Route path="/cifuentes/login" component={LoginCifuentes} />
        <Route path="/cifuentes/admin" component={AdminCifuentes} />
       <Route path="/cifuentes/game"  component={GameCifuentes} />
+
        <Route path="/soflopro" component={Soflopro} />
        <Route path="/soflopro/login" component={LoginSoflopro} />
        <Route path="/soflopro/admin" component={AdminSoflopro} />
       <Route path="/soflopro/game"  component={GameSoflopro} />
+
+       <Route path="/appliancegallery" component={ApplianceGallery} />
+       <Route path="/appliancegallery/login" component={LoginApplianceGallery} />
+       <Route path="/appliancegallery/admin" component={AdminApplianceGallery} />
+      <Route path="/appliancegallery/game"  component={GameApplianceGallery} />
 
       <Route component={NotFound} />
     </Switch>

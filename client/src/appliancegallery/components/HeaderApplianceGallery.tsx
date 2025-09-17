@@ -1,8 +1,8 @@
 import { Phone } from "lucide-react";
 import logoImage from "../assets/logo.png"; 
-import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
+import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/FAUCETS AND FIXTURES LOGO.png";
 
-export default function HeaderCifuentes() {
+export default function HeaderApplianceGallery() {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
@@ -13,7 +13,7 @@ export default function HeaderCifuentes() {
              <img
               src={companyLogo1}
               alt="Done For You Pros"
-              className="h-8 sm:h-12 md:h-16 w-auto object-contain"
+              className="h-8 sm:h-10 md:h-12 w-auto object-contain"
             />
             <img
               src={logoImage}
