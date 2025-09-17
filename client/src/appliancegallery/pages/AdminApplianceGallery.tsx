@@ -120,7 +120,7 @@ export default function AdminApplianceGallery() {
         title: "Success",
         description: "Logged out successfully",
       });
-      setLocation("/appliancefallery/login");
+      setLocation("/appliancegallery/login");
     },
   });
 

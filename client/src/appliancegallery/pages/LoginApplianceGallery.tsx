@@ -42,7 +42,7 @@ export default function LoginApplianceGallery() {
         title: "Success",
         description: "Logged in successfully",
       });
-      setLocation("/cifuentes/admin");
+      setLocation("/appliancegallery/admin");
     },
     onError: (error: Error) => {
       toast({
