@@ -3,7 +3,6 @@ import session from "express-session";
 import { registerRoutes } from "./routes.js";
 import dotenv from "dotenv";
 dotenv.config();
-import { storage } from "./storage.js";
 import pg from 'pg';
 import pgSession from "connect-pg-simple";
 import cors from "cors";
@@ -12,6 +11,7 @@ const pgPool = new pg.Pool({
 });
 const PgSessionStore = pgSession(session);
 const app = express();
+app.disable("etag");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
@@ -33,9 +33,9 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 5, // 5 hours session cookie
-        secure: true, // set true if HTTPS
+        secure: false, // set true if HTTPS
         httpOnly: true,
-        sameSite: "none",
+        // sameSite: "none",
     },
 }));
 app.use((req, res, next) => {
@@ -63,9 +63,6 @@ app.use((req, res, next) => {
     next();
 });
 (async () => {
-    // Initialize storage and default settings
-    await storage.createDefaultAdmin();
-    await storage.initializeDefaultSettings();
     const server = await registerRoutes(app);
     app.use((err, _req, res, _next) => {
         const status = err.status || err.statusCode || 500;
