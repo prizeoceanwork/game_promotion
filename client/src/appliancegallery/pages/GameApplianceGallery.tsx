@@ -785,7 +785,7 @@ useEffect(() => {
                 onClick={() => {
                   setShowConfetti(false);
                   localStorage.removeItem("userRegistrationData");
-                  setLocation("/");
+                  setLocation("/appliancegallery");
                 }}
                 className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2 px-6 rounded-lg text-sm"
               >
@@ -821,7 +821,7 @@ useEffect(() => {
                 Play Again
               </Button>
               <Button
-                onClick={() => setLocation("/")}
+                onClick={() => setLocation("/appliancegallery")}
                 variant="outline"
                 className="flex-1 text-base md:text-lg py-3 md:py-4"
               >

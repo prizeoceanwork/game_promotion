@@ -3,7 +3,6 @@ import session from "express-session";
 import { registerRoutes } from "./routes";
 import dotenv from "dotenv";
 dotenv.config();
-import { storage } from "./storage";
 import pg from 'pg';
 import pgSession from "connect-pg-simple";
 import cors from "cors";
@@ -15,6 +14,7 @@ const pgPool = new pg.Pool({
 const PgSessionStore = pgSession(session);
 
 const app = express();
+app.disable("etag"); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -77,9 +77,6 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Initialize storage and default settings
-  await storage.createDefaultAdmin();
-  await storage.initializeDefaultSettings();
   
   const server = await registerRoutes(app);
 

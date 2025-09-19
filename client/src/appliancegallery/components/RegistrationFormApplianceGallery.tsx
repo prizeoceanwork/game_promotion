@@ -55,9 +55,9 @@ export default function RegistrationFormApplianceGallery({
 
   // Fetch video requirement setting
   const { data: videoRequirementSetting } = useQuery({
-    queryKey: ["/api/settings/video_requirement_enabled"],
+    queryKey: ["/api/appliancegallery/settings/video_requirement_enabled"],
     queryFn: async () => {
-      const response = await apiRequest("GET", "/api/settings/video_requirement_enabled");
+      const response = await apiRequest("GET", "/api/appliancegallery/settings/video_requirement_enabled");
       return response.json();
     },
   });
@@ -76,7 +76,7 @@ export default function RegistrationFormApplianceGallery({
 
   const registerMutation = useMutation({
     mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/register", {
+      const response = await apiRequest("POST", "/api/appliancegallery/register", {
         ...data,
         videoWatched,
       });
@@ -95,7 +95,7 @@ export default function RegistrationFormApplianceGallery({
         title: "Registration Successful!",
         description: "Redirecting to the game...",
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/appliancegallery/stats"] });
       form.reset();
       // Redirect to game page after a short delay
       setTimeout(() => {
@@ -169,7 +169,7 @@ export default function RegistrationFormApplianceGallery({
               className="text-3xl md:text-4xl font-black text-[#DEB406] mb-4"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              Ready to Play?
+              Get Ready to Play?
             </h2>
             <p
               className="text-lg text-gray-600 mb-6"

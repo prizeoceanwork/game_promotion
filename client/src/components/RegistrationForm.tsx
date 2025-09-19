@@ -57,7 +57,7 @@ export default function RegistrationForm({
   const { data: videoRequirementSetting } = useQuery({
     queryKey: ["/api/settings/video_requirement_enabled"],
     queryFn: async () => {
-      const response = await apiRequest("GET", "/api/settings/video_requirement_enabled");
+      const response = await apiRequest("GET", "/api/doneforyoupros/settings/video_requirement_enabled");
       return response.json();
     },
   });
@@ -76,7 +76,7 @@ export default function RegistrationForm({
 
   const registerMutation = useMutation({
     mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/register", {
+      const response = await apiRequest("POST", "/api/doneforyoupros/register", {
         ...data,
         videoWatched,
       });
@@ -95,7 +95,7 @@ export default function RegistrationForm({
         title: "Registration Successful!",
         description: "Redirecting to the game...",
       });
-      queryClient.invalidateQueries({ queryKey: ["/api/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/doneforyoupros/stats"] });
       form.reset();
       // Redirect to game page after a short delay
       setTimeout(() => {

@@ -3,6 +3,8 @@ import VideoSectionCifuentes from "../components/VideoSectionCifuentes";
 import GamePreviewCifuentes from "../components/GamePreviewCifuentes";
 import RegistrationFormCifuentes from "../components/RegistrationFormCifuentes";
 import FooterCifuentes from "../components/FooterCifuentes";
+import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
+
 import { useState } from "react";
 
 export default function HomeCifuentes() {
@@ -26,9 +28,17 @@ export default function HomeCifuentes() {
         <div className="relative container mx-auto px-4 text-center">
           <div className="max-w-10xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              MEET OUR INSTALLATION PROS
+              PRESENTING BY
             </h1>
-            
+          <div className="flex justify-center mb-6">
+            <div className="glowing-element" >
+             <img
+              src={companyLogo1}
+              alt="Done For You Pros"
+              className="h-20 md:h-40 w-auto object-contain"
+            />
+            </div>
+          </div>
             {/* Star Rating */}
             <div className="flex justify-center mb-8">
               <div className="flex space-x-1">
@@ -41,9 +51,11 @@ export default function HomeCifuentes() {
                 ))}
               </div>
             </div>
-            
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-semibold mb-2 px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+           OUR SHARED VISION TO PROVIDE HOMEOWNERS EXCEPTIONAL SERVICES BROUGHT US TOGETHER!
+            </h1>
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-semibold mb-8 px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-              Watch our Video to see the Amazing Prizes you can WIN!
+              Watch our Video to see the Amazing Prizes you can keep WIN to protect home!
               <br />
               You get to play TWO of our Scratch and Win Games! Yes, TWO chances to be an INSTANT WINNER,
               <span className="text-[#10155E] font-black block sm:inline"> $5 Million</span> in Instant Prizes!

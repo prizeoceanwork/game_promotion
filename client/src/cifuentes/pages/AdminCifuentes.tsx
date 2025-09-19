@@ -92,9 +92,9 @@ export default function AdminCifuentes() {
     isLoading,
     error,
   } = useQuery<Registration[]>({
-    queryKey: ["/api/admin/registrations"],
+    queryKey: ["/api/admin/cifuentes/registrations"],
     queryFn: async () => {
-      const response = await apiRequest("GET", "/api/admin/registrations");
+      const response = await apiRequest("GET", "/api/cifuentes/admin/registrations");
       if (!response.ok) {
         if (response.status === 401) {
           setLocation("/cifuentes/login");
@@ -154,14 +154,14 @@ export default function AdminCifuentes() {
 
   const deleteRegistration = useMutation({
     mutationFn: async (id: string) => {
-     const response = await apiRequest("DELETE", `/api/admin/registrations/${id}`);
+     const response = await apiRequest("DELETE", `/api/cifuentes/admin/registrations/${id}`);
       if (!response.ok) {
         throw new Error("Failed to delete registration");
       }
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/registrations"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/cifuentes/admin/registrations"] });
       toast({
         title: "Success",
         description: "Registration deleted successfully",
@@ -192,14 +192,14 @@ export default function AdminCifuentes() {
   // Bulk delete mutation
   const bulkDeleteMutation = useMutation({
     mutationFn: async (ids: string []) => {
-       const response = await apiRequest("POST", "/api/admin/registrations/bulk-delete", { ids });
+       const response = await apiRequest("POST", "/api/cifuentes/admin/registrations/bulk-delete", { ids });
       if (!response.ok) {
         throw new Error("Failed to delete users");
       }
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/registrations"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/cifuentes/admin/registrations"] });
       setSelectedUsers([]);
       setSelectAll(false);
       toast({
@@ -302,9 +302,9 @@ export default function AdminCifuentes() {
 
   // Settings query
   const { data: settings } = useQuery({
-    queryKey: ["/api/admin/settings"],
+    queryKey: ["/api/cifuentes/admin/settings"],
     queryFn: async () => {
-      const response = await apiRequest("GET", "/api/admin/settings");
+      const response = await apiRequest("GET", "/api/cifuentes/admin/settings");
       if (!response.ok) {
         throw new Error("Failed to fetch settings");
       }
@@ -316,7 +316,7 @@ export default function AdminCifuentes() {
   // Settings mutation
   const updateSettingMutation = useMutation({
     mutationFn: async ({ key, value }: { key: string; value: string }) => {
-     const response = await apiRequest("PUT", `/api/admin/settings/${key}`, { value });
+     const response = await apiRequest("PUT", `/api/cifuentes/admin/settings/${key}`, { value });
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Failed to update setting");
@@ -324,7 +324,7 @@ export default function AdminCifuentes() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/cifuentes/admin/settings"] });
       toast({
         title: "Success",
         description: "Setting updated successfully",
@@ -578,7 +578,7 @@ export default function AdminCifuentes() {
             Export CSV
           </Button>
           <Button
-            onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/admin/registrations"] })}
+            onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/cifuentes/admin/registrations"] })}
             variant="outline"
             size="sm"
             className="w-full sm:w-auto bg-white/10 hover:bg-white/20 border-white/30 text-white hover:text-white backdrop-blur-sm"
@@ -1227,7 +1227,7 @@ export default function AdminCifuentes() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button
-                    onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/admin/registrations"] })}
+                    onClick={() => queryClient.invalidateQueries({ queryKey: ["/api/cifuentes/admin/registrations"] })}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                     style={{ fontFamily: "Montserrat, sans-serif" }}
                   >

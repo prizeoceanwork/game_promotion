@@ -11,9 +11,34 @@ interface AuthRequest extends Request {
   session: any;
 }
 
+
+// Middleware: ensure game exists
+async function ensureGameExists(req: Request, res: Response, next: any) {
+  try {
+    const { slug } = req.params;
+    if (!slug) return res.status(400).json({ message: "Slug is required" });
+
+    let game = await storage.getGameBySlug(slug);
+    if (!game) {
+      // auto-create the game
+      game = await storage.createGame({
+        name: slug,   // or req.body.name if you want custom name
+        slug,
+      });
+      console.log(`Game created automatically with slug: ${slug}`);
+    }
+
+    // Attach game to request for downstream routes
+    (req as any).game = game;
+    next();
+  } catch (err) {
+    console.error("ensureGameExists error:", err);
+    res.status(500).json({ message: "Failed to ensure game exists" });
+  }
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Initialize default admin user
-  await storage.createDefaultAdmin();
+
 
   // Authentication middleware
   const requireAuth = async (req: AuthRequest, res: Response, next: any) => {
@@ -85,21 +110,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Registration endpoint
-  app.post("/api/register", async (req, res) => {
-    try {
-      const validatedData = insertRegistrationSchema.parse(req.body);
-      const allowedEmail = "gamedemo@gmail.com"
+ app.post("/api/:slug/register", ensureGameExists, async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const game = await storage.getGameBySlug(slug);
+    if (!game) return res.status(404).json({ message: "Game not found" });
 
-      
-      // Check duplicate email setting
-      const emailCheckSetting = await storage.getSetting('duplicate_email_check');
-      const emailCheckEnabled = emailCheckSetting?.value === 'true';
-      
-    if (
-      emailCheckEnabled &&
-      validatedData.email.toLowerCase() !== allowedEmail.toLowerCase()
-    ) {
+    const validatedData = insertRegistrationSchema.parse(req.body);
+
+    // Check duplicate email setting
+    const emailCheckSetting = await storage.getSetting(game.id, "duplicate_email_check");
+    const emailCheckEnabled = emailCheckSetting?.value === "true";
+
+    if (emailCheckEnabled) {
       const existingRegistration = await storage.getRegistrationByEmail(
+        game.id,
         validatedData.email
       );
       if (existingRegistration) {
@@ -108,125 +133,114 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     }
-      
-      const registration = await storage.createRegistration(validatedData);
-      res.json({ 
-        message: "Registration successful!", 
-        id: registration.id ,
-        name: registration.name,
-        email: registration.email,
-        phone :registration.phone
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Invalid data provided", 
-          errors: error.errors 
-        });
-      }
-      
-      console.error("Registration error:", error);
-      res.status(500).json({ 
-        message: "Failed to register. Please try again." 
-      });
-    }
-  });
 
-  // Get registration count for trust indicator
-  app.get("/api/stats", async (req, res) => {
-    try {
-      const count = await storage.getRegistrationCount();
-      res.json({ registrationCount: count });
-    } catch (error) {
-      console.error("Stats error:", error);
-      res.status(500).json({ message: "Failed to fetch statistics" });
-    }
-  });
+    const registration = await storage.createRegistration(game.id, validatedData);
+    res.json({
+      message: "Registration successful!",
+      id: registration.id,
+      name: registration.name,
+      email: registration.email,
+      phone: registration.phone,
+    });
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ message: "Failed to register. Please try again." });
+  }
+});
+
+
+app.get("/api/:slug/stats", ensureGameExists, async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const game = await storage.getGameBySlug(slug);
+    if (!game) return res.status(404).json({ message: "Game not found" });
+
+    const count = await storage.getRegistrationCount(game.id);
+    res.json({ registrationCount: count });
+  } catch (error) {
+    console.error("Stats error:", error);
+    res.status(500).json({ message: "Failed to fetch statistics" });
+  }
+});
+
 
   // Admin routes (protected)
-  app.get("/api/admin/registrations", requireAuth, async (req, res) => {
-    try {
-      const registrations = await storage.getAllRegistrations();
-      res.json(registrations);
-    } catch (error) {
-      console.error("Admin registrations error:", error);
-      res.status(500).json({ message: "Failed to fetch registrations" });
-    }
-  });
+app.get("/api/:slug/admin/registrations", requireAuth, async (req, res) => {
+  const { slug } = req.params;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
 
-  app.delete("/api/admin/registrations/:id", requireAuth, async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ message: "Invalid registration ID" });
-      }
-      
-      await storage.deleteRegistration(id);
-      res.json({ message: "Registration deleted successfully" });
-    } catch (error) {
-      console.error("Admin delete error:", error);
-      res.status(500).json({ message: "Failed to delete registration" });
-    }
-  });
+  const registrations = await storage.getAllRegistrations(game.id);
+  res.json(registrations);
+});
 
-  // Bulk delete registrations
-  app.post("/api/admin/registrations/bulk-delete", requireAuth, async (req, res) => {
-    try {
-      const { ids } = req.body;
-      
-      if (!Array.isArray(ids) || ids.length === 0) {
-        return res.status(400).json({ message: "Invalid or empty IDs array" });
-      }
+app.delete("/api/:slug/admin/registrations/:id", requireAuth, async (req, res) => {
+  const { slug, id } = req.params;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
 
-      // Validate all IDs are numbers
-      const validIds = ids.filter(id => typeof id === 'number' && !isNaN(id));
-      if (validIds.length !== ids.length) {
-        return res.status(400).json({ message: "All IDs must be valid numbers" });
-      }
+  const regId = parseInt(id);
+  await storage.deleteRegistration(regId, game.id);
+  res.json({ message: "Registration deleted successfully" });
+});
 
-      await storage.bulkDeleteRegistrations(validIds);
-      res.json({ message: `${validIds.length} registrations deleted successfully` });
-    } catch (error) {
-      console.error("Bulk delete error:", error);
-      res.status(500).json({ message: "Failed to delete registrations" });
-    }
-  });
+app.post("/api/:slug/admin/registrations/bulk-delete", requireAuth, async (req, res) => {
+  const { slug } = req.params;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
+
+  const { ids } = req.body;
+  await storage.bulkDeleteRegistrations(ids, game.id);
+  res.json({ message: `${ids.length} registrations deleted successfully` });
+});
+
 
   // Update admin credentials
-  app.put("/api/admin/update-credentials", requireAuth, async (req: AuthRequest, res: Response) => {
-    try {
-      const validatedData = updateUserSchema.parse(req.body);
-      const userId = req.session.userId;
-      
-      if (!userId) {
-        return res.status(401).json({ message: "Not authenticated" });
-      }
-      
-      const updatedUser = await storage.updateUser(userId!, validatedData);
-      
-      // Update session if username changed
-      if (validatedData.username) {
-        req.session.username = validatedData.username;
-      }
-      
-      res.json({ 
-        message: "Credentials updated successfully",
-        user: { id: updatedUser.id, username: updatedUser.username, role: updatedUser.role }
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Invalid data provided", 
-          errors: error.errors 
-        });
-      }
-      
-      console.error("Update credentials error:", error);
-      res.status(500).json({ 
-        message: "Failed to update credentials" 
+app.put("/api/admin/update-credentials", requireAuth, async (req: AuthRequest, res: Response) => {
+  try {
+
+    // Validate body
+    const validatedData = updateUserSchema.parse(req.body);
+    
+    const userId = req.session.userId;
+   
+
+    if (!userId) {
+      console.warn("❌ No userId in session. User not authenticated.");
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+
+    // Update user in DB
+    const updatedUser = await storage.updateUser(userId, validatedData);
+
+    // Update session username if it changed
+    if (validatedData.username) {
+      console.log(`Updating session username → ${validatedData.username}`);
+      req.session.username = validatedData.username;
+    }
+
+    res.json({
+      message: "Credentials updated successfully",
+      user: { id: updatedUser.id, username: updatedUser.username, role: updatedUser.role }
+    });
+
+  } catch (error) {
+    console.error("🔥 Update credentials error:", error);
+
+    if (error instanceof z.ZodError) {
+      console.warn("❌ Validation failed:", error.errors);
+      return res.status(400).json({
+        message: "Invalid data provided",
+        errors: error.errors
       });
     }
-  });
+
+    res.status(500).json({
+      message: "Failed to update credentials"
+    });
+  }
+});
+
 
   // Email routes
   app.post("/api/email/winner", async (req, res) => {
@@ -239,16 +253,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         phoneNumber: z.string().min(1)
       });
 
-    const validatedData = winnerEmailSchema.parse(req.body);
-
-    const blockedEmail = "gamedemo@gmail.com";
-
-    // Skip sending if it's the blocked email
-    if (validatedData.userEmail === blockedEmail) {
-      return res.json({
-        message: `Skipped sending email to ${blockedEmail} (blocked email).`
-      });
-    }
+      const validatedData = winnerEmailSchema.parse(req.body);
       
       const success = await sendWinnerEmail(validatedData);
       
@@ -300,73 +305,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Public settings routes (for frontend consumption)
-  app.get("/api/settings/video_requirement_enabled", async (req, res) => {
-    try {
-      const setting = await storage.getSetting("video_requirement_enabled");
-      
-      if (!setting) {
-        // Default to true if setting doesn't exist
-        res.json({ value: "true" });
-      } else {
-        res.json(setting);
-      }
-    } catch (error) {
-      console.error("Setting fetch error:", error);
-      res.status(500).json({ message: "Failed to fetch setting" });
+ app.get("/api/:slug/settings/video_requirement_enabled", async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const game = await storage.getGameBySlug(slug);
+    if (!game) return res.status(404).json({ message: "Game not found" });
+
+    const setting = await storage.getSetting(game.id, "video_requirement_enabled");
+
+    if (!setting) {
+      // Default to true if setting doesn't exist
+      res.json({ value: "true" });
+    } else {
+      res.json(setting);
     }
-  });
+  } catch (error) {
+    console.error("Setting fetch error:", error);
+    res.status(500).json({ message: "Failed to fetch setting" });
+  }
+});
 
   // Settings routes (admin protected)
-  app.get("/api/admin/settings", requireAuth, async (req, res) => {
-    try {
-      const settings = await storage.getAllSettings();
-      res.json(settings);
-    } catch (error) {
-      console.error("Settings fetch error:", error);
-      res.status(500).json({ message: "Failed to fetch settings" });
-    }
-  });
+  app.get("/api/:slug/settings/:key", async (req, res) => {
+  const { slug, key } = req.params;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
 
-  app.get("/api/admin/settings/:key", requireAuth, async (req, res) => {
-    try {
-      const { key } = req.params;
-      const setting = await storage.getSetting(key);
-      
-      if (!setting) {
-        return res.status(404).json({ message: "Setting not found" });
-      }
-      
-      res.json(setting);
-    } catch (error) {
-      console.error("Setting fetch error:", error);
-      res.status(500).json({ message: "Failed to fetch setting" });
-    }
-  });
+  const setting = await storage.getSetting(game.id, key);
+  res.json(setting || { value: "true" }); // default
+});
 
-  app.put("/api/admin/settings/:key", requireAuth, async (req, res) => {
-    try {
-      const { key } = req.params;
-      const updateSettingSchema = z.object({
-        value: z.string(),
-        description: z.string().optional(),
-      });
-      
-      const { value, description } = updateSettingSchema.parse(req.body);
-      
-      const setting = await storage.setSetting(key, value, description);
-      res.json({ message: "Setting updated successfully", setting });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Invalid data provided", 
-          errors: error.errors 
-        });
-      }
-      
-      console.error("Setting update error:", error);
-      res.status(500).json({ message: "Failed to update setting" });
-    }
-  });
+app.get("/api/:slug/admin/settings", requireAuth, async (req, res) => {
+  const { slug } = req.params;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
+
+  const settings = await storage.getAllSettings(game.id);
+  res.json(settings);
+});
+
+app.put("/api/:slug/admin/settings/:key", requireAuth, async (req, res) => {
+  const { slug, key } = req.params;
+  const { value, description } = req.body;
+  const game = await storage.getGameBySlug(slug);
+  if (!game) return res.status(404).json({ message: "Game not found" });
+
+  const setting = await storage.setSetting(game.id, key, value, description);
+  res.json({ message: "Setting updated successfully", setting });
+});
+
 
   // Serve logo image
   app.get("/logo.png", (req, res) => {
@@ -378,6 +365,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     });
   });
+
 
   const httpServer = createServer(app);
   return httpServer;

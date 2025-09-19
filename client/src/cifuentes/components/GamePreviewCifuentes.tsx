@@ -1,9 +1,22 @@
+import { useQuery } from "@tanstack/react-query";
 import gameCardImage from "../assets/homepage.png";
+import { apiRequest } from "@/lib/queryClient";
+
+type StatsResponse = {
+  registrationCount: number;
+};
 
 
 
 export default function GamePreviewCifuentes() {
- 
+  const { data: stats } = useQuery<StatsResponse>({
+    queryKey: ["/api/stats"],
+    queryFn: async () => {
+      const res = await apiRequest("GET" ,"/api/cifuentes/stats");
+      if (!res.ok) throw new Error("Failed to fetch stats");
+      return res.json();
+    },
+  });
 
   return (
     <section className="bg-gradient-to-r from-[#DEB406] via-[#DEB406]  to-[#10155E] py-16">
@@ -35,8 +48,22 @@ export default function GamePreviewCifuentes() {
           {/* Trust Indicator */}
          <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-5xl mx-auto">
             <p className="text-[hsl(225,47%,32%)] font-bold text-lg mb-2">
-             OUR SHARED VISION TO PROVIDE HOMEOWNERS EXCEPTIONAL SERVICES BROUGHT US TOGETHER!
+             OUR 1 MILLION APPLIANCE CONNECTION PARTS PROFESSIONALY INSTALLED AND TESTED!
             </p>
+             <div className="hidden">
+
+            {
+              stats ? (
+                <p className="text-[hsl(225,47%,32%)] font-semibold text-2xl">
+                  Join <span className="text-red-500">{stats.registrationCount.toLocaleString()}</span> homeowners who have already registered!
+                </p>
+              ) : (
+                <p className="text-[hsl(225,47%,32%)] font-semibold text-2xl">
+                  Loading registration stats...
+                </p>
+              )
+            }
+            </div>
           </div>
         </div>
       </div>

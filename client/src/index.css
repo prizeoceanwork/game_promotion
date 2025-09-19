@@ -120,3 +120,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+.glowing-element {
+  
+  color: white;
+ 
+  border-radius: 50%;
+  box-shadow: 0 0 30px 10px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}
+
+.glowing-element-soflopro {
+  
+  color: white;
+ 
+  box-shadow: 0 0 80px 15px rgb(50, 122, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}
+
+.glowing-element-appliancegallery {
+  background-color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  color: white;
+ 
+  box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}

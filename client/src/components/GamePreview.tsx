@@ -1,22 +1,22 @@
-// import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import gameCardImage from "../assets/homepage.png";
-// import { apiRequest } from "@/lib/queryClient";
+import { apiRequest } from "@/lib/queryClient";
 
-// type StatsResponse = {
-//   registrationCount: number;
-// };
+type StatsResponse = {
+  registrationCount: number;
+};
 
 
 
 export default function GamePreview() {
-  // const { data: stats } = useQuery<StatsResponse>({
-  //   queryKey: ["/api/stats"],
-  //   queryFn: async () => {
-  //     const res = await apiRequest("GET" ,"/api/stats");
-  //     if (!res.ok) throw new Error("Failed to fetch stats");
-  //     return res.json();
-  //   },
-  // });
+  const { data: stats } = useQuery<StatsResponse>({
+    queryKey: ["/api/stats"],
+    queryFn: async () => {
+      const res = await apiRequest("GET" ,"/api/doneforyoupros/stats");
+      if (!res.ok) throw new Error("Failed to fetch stats");
+      return res.json();
+    },
+  });
 
   return (
     <section className="bg-gradient-to-br from-yellow-400 via-orange-400 to-red-500 py-16">
@@ -50,6 +50,20 @@ export default function GamePreview() {
             <p className="text-[hsl(225,47%,32%)] font-bold text-lg mb-2">
              We've already replaced over 1 Million old appliance connection parts. It's your turn!
             </p>
+            <div className="hidden">
+
+            {
+              stats ? (
+                <p className="text-[hsl(225,47%,32%)] font-semibold text-2xl">
+                  Join <span className="text-red-500">{stats.registrationCount.toLocaleString()}</span> homeowners who have already registered!
+                </p>
+              ) : (
+                <p className="text-[hsl(225,47%,32%)] font-semibold text-2xl">
+                  Loading registration stats...
+                </p>
+              )
+            }
+            </div>
           </div>
         </div>
       </div>
