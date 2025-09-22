@@ -169,7 +169,7 @@ export default function RegistrationForm({
               className="text-3xl md:text-4xl font-black text-[#2C5CDC] mb-4"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-              Ready to Play?
+              Get Ready to Play?
             </h2>
             <p
               className="text-lg text-gray-600 mb-6"

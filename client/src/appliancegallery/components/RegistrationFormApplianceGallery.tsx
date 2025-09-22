@@ -99,7 +99,7 @@ export default function RegistrationFormApplianceGallery({
       form.reset();
       // Redirect to game page after a short delay
       setTimeout(() => {
-        setLocation("/cifuentes/game");
+        setLocation("/appliancegallery/game");
       }, 1500);
     },
     onError: (error: unknown) => {

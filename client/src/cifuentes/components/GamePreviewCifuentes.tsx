@@ -48,7 +48,7 @@ export default function GamePreviewCifuentes() {
           {/* Trust Indicator */}
          <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-5xl mx-auto">
             <p className="text-[hsl(225,47%,32%)] font-bold text-lg mb-2">
-             OUR 1 MILLION APPLIANCE CONNECTION PARTS PROFESSIONALY INSTALLED AND TESTED!
+             OVER 1 MILLION APPLIANCE CONNECTION PARTS PROFESSIONALY INSTALLED AND TESTED!
             </p>
              <div className="hidden">
 

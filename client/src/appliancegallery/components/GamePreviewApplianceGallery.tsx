@@ -47,8 +47,8 @@ export default function GamePreviewApplianceGallery() {
 
           {/* Trust Indicator */}
          <div className="text-center bg-white bg-opacity-90 rounded-xl p-6 max-w-5xl mx-auto">
-            <p className="text-[#FFDF20] font-bold text-lg mb-2">
-           OUR 1 MILLION APPLIANCE CONNECTION PARTS PROFESSIONALY INSTALLED AND TESTED!
+            <p className="text-[#DEB406] font-bold text-lg mb-2">
+           OVER 1 MILLION APPLIANCE CONNECTION PARTS PROFESSIONALY INSTALLED AND TESTED!
             </p>
               <div className="hidden">
 

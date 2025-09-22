@@ -29,7 +29,7 @@ export default function HomeApplianceGallery() {
         <div className="relative container mx-auto px-4 text-center">
           <div className="max-w-10xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-               PRESENTING BY
+               PRESENTED BY
             </h1>
             <div className="flex justify-center mb-6 ">
             <div className="glowing-element-appliancegallery " >

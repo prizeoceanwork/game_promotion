@@ -15,7 +15,7 @@ export default function HomeSoflopro() {
       <Headersoflopro />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF] py-16 md:py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-[#4150FF] via-[#FEA310] to-[#FEC76B] py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -28,14 +28,14 @@ export default function HomeSoflopro() {
         <div className="relative container mx-auto px-4 text-center">
           <div className="max-w-10xl mx-auto">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-               PRESENTING BY
+               PRESENTED BY
             </h1>
                       <div className="flex justify-center mb-6">
             <div className="glowing-element-soflopro rounded-md" >
              <img
               src={companyLogo}
               alt="Done For You Pros"
-              className="h-20 md:h-40 w-auto object-contain rounded-md"
+              className="h-20 md:h-60 w-auto object-contain rounded-md"
             />
             </div>
           </div>
