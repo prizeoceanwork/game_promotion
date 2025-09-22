@@ -766,7 +766,7 @@ useEffect(() => {
 
         {/* New professionals section */}
         <div className="bg-gradient-to-br from-[#FEC76B] via-[#FEA310] to-[#4150FF]  text-white p-3 rounded-lg mb-4 shadow-md">
-          <h3 className="text-lg font-bold">MEET OUR AMAZING SAN DIEGO INSTALLATION PROFESSIONALS</h3>
+          <h3 className="text-lg font-bold">MEET OUR AMAZING FLORIDA INSTALLATION PROFESSIONALS</h3>
         </div>
          <div className="my-4">
                 <video
