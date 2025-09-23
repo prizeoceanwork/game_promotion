@@ -29,20 +29,15 @@ export default function Game() {
     fontWeight: "bold",
   };
 
-  // Inject CSS
- if (typeof document !== "undefined" && wayCome) {
-  const font = new FontFace("WayCome", `url(${wayCome})`, {
-    style: "normal",
-    weight: "normal",
-  });
+useEffect(() => {
+  if (typeof document !== "undefined" && wayCome) {
+    const font = new FontFace("WayCome", `url(${wayCome})`);
+    font.load().then((loadedFont) => {
+      document.fonts.add(loadedFont);
+    }).catch((err) => console.error("Font failed to load:", err));
+  }
+}, []);
 
-  font.load().then((loadedFont) => {
-    document.fonts.add(loadedFont);
-    document.body.style.fontFamily = "WayCome, sans-serif"; // optional global apply
-  }).catch((err) => {
-    console.error("Font failed to load:", err);
-  });
-}
 
 
   const [, setLocation] = useLocation();
@@ -255,7 +250,7 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         if (dishwasherCount >= 3) {
           setWinnerCard(updatedCard);
           setShowConfetti(true);
-          
+          setGameComplete(true);
           // Use registration data for email if available
           if (userRegistrationData) {
             sendWinnerEmailWithRegistrationData(userRegistrationData);
@@ -286,7 +281,8 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
     if (!winnerEmail || !winnerName) return;
     
     setEmailSending(true);
-    
+    setGameComplete(true);
+    setShowEmailPrompt(false);
     try {
       await apiRequest("POST", "/api/email/winner", {
         userEmail: winnerEmail,
@@ -296,18 +292,13 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         phoneNumber: "(619) 871-2110"
       });
       
-      // Show winner popup after email is sent
-      setShowEmailPrompt(false);
-      setTimeout(() => setGameComplete(true), 500);
+     
     } catch (error) {
-      console.error("Failed to send winner email:", error);
-      // Still show winner popup even if email fails
-      setShowEmailPrompt(false);
-      setTimeout(() => setGameComplete(true), 500);
-    } finally {
-      setEmailSending(false);
-    }
-  };
+    console.error("Failed to send winner email:", error);
+  } finally {
+    setEmailSending(false);
+  }
+};
 
   const sendWinnerEmailWithRegistrationData = async (regData: any) => {
     setEmailSending(true);
@@ -320,15 +311,10 @@ const [winnerCard, setWinnerCard] = useState<ScratchCardData | null>(null);
         prizeValue: "$591",
         phoneNumber: regData.phone
       });
-      
-      setTimeout(() => setGameComplete(true), 500);
+    
     } catch (error) {
-      console.error("Error sending winner email:", error);
-      // Still proceed to show completion
-      setTimeout(() => setGameComplete(true), 500);
-    } finally {
-      setEmailSending(false);
-    }
+       setEmailSending(false);
+    } 
   };
 
   const resetGame = () => {
