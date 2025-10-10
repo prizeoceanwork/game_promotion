@@ -8,6 +8,30 @@ import { useState } from "react";
 export default function Home() {
   const [videoWatched, setVideoWatched] = useState(false);
 
+// 
+//   const params = new URLSearchParams(
+//     typeof window !== "undefined" ? window.location.search : ""
+//   );
+//   const embed = params.get("embed");
+
+//   
+//   if (embed === "gamepreview") {
+//     return (
+//       <div className="bg-white">
+//         <GamePreview />
+//       </div>
+//     );
+//   }
+
+//  if (embed === "RegistrationForm") {
+//     return (
+//       <div className="bg-white">
+//         <RegistrationForm videoWatched={videoWatched} />
+//       </div>
+//     );
+//   }
+
+
   return (
     <div className="min-h-screen bg-white">
       <Header />

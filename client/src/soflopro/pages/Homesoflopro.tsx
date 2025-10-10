@@ -5,6 +5,7 @@ import RegistrationFormsoflopro from "../components/RegistrationFormsoflopro";
 import Footersoflopro from "../components/Footersoflopro";
 import { useState } from "react";
 import companyLogo from "../assets/Game-2(SofloPro Services)/Assets/SO FLO PRO LOGO 2 .png"
+import logoImage from "../assets/logo.png"; 
 
 
 export default function HomeSoflopro() {
@@ -27,15 +28,24 @@ export default function HomeSoflopro() {
         
         <div className="relative container mx-auto px-4 text-center">
           <div className="max-w-10xl mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-               PRESENTED BY
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+               OFFICIAL SPONSORED
             </h1>
-                      <div className="flex justify-center mb-6">
+          <div className="flex flex-col md:flex-row  justify-center items-center gap-8 mb-6">
             <div className="glowing-element-soflopro rounded-md" >
              <img
               src={companyLogo}
               alt="Done For You Pros"
-              className="h-20 md:h-60 w-auto object-contain rounded-md"
+              className="h-32 md:h-40 w-auto object-contain rounded-md"
+            />
+            </div>
+             <div className=" hidden md:block w-2 h-50 bg-white rounded-full  glowing-element-line"></div>
+             <div className="block md:hidden w-60 h-2 bg-white rounded-full  glowing-element-line"></div>
+            <div className="glowing-element-soflopro-logo rounded-md" >
+             <img
+              src={logoImage}
+              alt="Done For You Pros"
+              className="h-30 md:h-40 w-auto  object-contain"
             />
             </div>
           </div>

@@ -1,22 +1,22 @@
-import HeaderApplianceGallery from "../components/HeaderApplianceGallery";
-import VideoSectionApplianceGallery from "../components/VideoSectionApplianceGallery";
-import GamePreviewApplianceGallery from "../components/GamePreviewApplianceGallery";
-import RegistrationFormApplianceGallery from "../components/RegistrationFormApplianceGallery";
-import FooterApplianceGallery from "../components/FooterApplianceGallery";
+import HeaderSocialBuildingGroup from "../components/HeaderSocialBuildingGroup";
+import VideoSectionSocialBuildingGroup from "../components/VideoSectionSocialBuildingGroup";
+import GamePreviewSocialBuildingGroup from "../components/GamePreviewSocialBuildingGroup";
+import RegistrationFormSocialBuildingGroup from "../components/RegistrationFormSocialBuildingGroup";
+import FooterSocialBuildingGroup from "../components/FooterSocialBuildingGroup";
 import { useState } from "react";
-import companyLogo from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/FAUCETS AND FIXTURES LOGO.png";
+import companyLogo from "../assets/SOCAL-2.png";
 import logoImage from "../assets/logo.png"; 
 
 
-export default function HomeApplianceGallery() {
+export default function HomeSocialBuildingGroup() {
   const [videoWatched, setVideoWatched] = useState(false);
 
   return (
     <div className="min-h-screen bg-white">
-      <HeaderApplianceGallery />
+      <HeaderSocialBuildingGroup />
       
       {/* Hero Section */}
-      <section className="relative bg-[#DEB406] py-16 md:py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-gray-800  to-gray-600 py-16 md:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-10"></div>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -32,11 +32,11 @@ export default function HomeApplianceGallery() {
                OFFICIAL SPONSORED
             </h1>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 mb-6 ">
-            <div className="glowing-element-appliancegallery " >
+            <div className="glowing-element-socialbuildinggroup " >
              <img
               src={companyLogo}
               alt="Done For You Pros"
-              className="h-15 md:h-20 w-auto object-contain "
+              className="h-15 md:h-25 w-auto object-contain "
             />
             </div>
              <div className="hidden md:block w-2 h-40 bg-white rounded-full  glowing-element-line"></div>
@@ -74,10 +74,10 @@ export default function HomeApplianceGallery() {
         </div>
       </section>
 
-      <VideoSectionApplianceGallery onVideoComplete={() => setVideoWatched(true)} />
-      <GamePreviewApplianceGallery />
-      <RegistrationFormApplianceGallery videoWatched={videoWatched} />
-      <FooterApplianceGallery />
+      <VideoSectionSocialBuildingGroup onVideoComplete={() => setVideoWatched(true)} />
+      <GamePreviewSocialBuildingGroup />
+      <RegistrationFormSocialBuildingGroup videoWatched={videoWatched} />
+      <FooterSocialBuildingGroup />
     </div>
   );
 }

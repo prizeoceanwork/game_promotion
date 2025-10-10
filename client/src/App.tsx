@@ -25,6 +25,12 @@ import LoginApplianceGallery from "./appliancegallery/pages/LoginApplianceGaller
 import AdminApplianceGallery from "./appliancegallery/pages/AdminApplianceGallery";
 import GameApplianceGallery from "./appliancegallery/pages/GameApplianceGallery";
 
+import SocialBuildingGroup from "./socialbuildinggroup/SocialBuildingGroup";
+import LoginSocialBuildingGroup from "./socialbuildinggroup/pages/LoginSocialBuildingGroup";
+import AdminSocialBuildingGroup from "./socialbuildinggroup/pages/AdminSocialBuildingGroup";
+import GameSocialBuildingGroup from "./socialbuildinggroup/pages/GameSocialBuildingGroup";
+
+
 
 function Router() { 
   return (
@@ -47,6 +53,11 @@ function Router() {
        <Route path="/appliancegallery/login" component={LoginApplianceGallery} />
        <Route path="/appliancegallery/admin" component={AdminApplianceGallery} />
       <Route path="/appliancegallery/game"  component={GameApplianceGallery} />
+
+       <Route path="/socialbuildinggroup" component={SocialBuildingGroup} />
+       <Route path="/socialbuildinggroup/login" component={LoginSocialBuildingGroup} />
+       <Route path="/socialbuildinggroup/admin" component={AdminSocialBuildingGroup} />
+      <Route path="/socialbuildinggroup/game"  component={GameSocialBuildingGroup} />
 
       <Route component={NotFound} />
     </Switch>
