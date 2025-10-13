@@ -10,25 +10,30 @@ import Login from "@/pages/Login";
 import NotFound from "@/pages/not-found";
 import './App.css'
 import { useEffect } from "react";
-import LoginCifuentes from "./cifuentes/pages/LoginCifuentes";
-import AdminCifuentes from "./cifuentes/pages/AdminCifuentes";
-import GameCifuentes from "./cifuentes/pages/GameCifuentes";
+import LoginCifuentes from "./cifuentes/pages/Login";
+import AdminCifuentes from "./cifuentes/pages/Admin";
+import GameCifuentes from "./cifuentes/pages/Game";
 import Cifuentes from "./cifuentes/Cifuentes";
 
 import Soflopro from "./soflopro/Soflopro"
-import LoginSoflopro from "./soflopro/pages/LoginSoflopro";
-import AdminSoflopro from "./soflopro/pages/Adminsoflopro";
-import GameSoflopro from "./soflopro/pages/Gamesoflopro";
+import LoginSoflopro from "./soflopro/pages/Login";
+import AdminSoflopro from "./soflopro/pages/Admin";
+import GameSoflopro from "./soflopro/pages/Game";
 
 import ApplianceGallery from "./appliancegallery/ApplianceGallery"
-import LoginApplianceGallery from "./appliancegallery/pages/LoginApplianceGallery";
-import AdminApplianceGallery from "./appliancegallery/pages/AdminApplianceGallery";
-import GameApplianceGallery from "./appliancegallery/pages/GameApplianceGallery";
+import LoginApplianceGallery from "./appliancegallery/pages/Login";
+import AdminApplianceGallery from "./appliancegallery/pages/Admin";
+import GameApplianceGallery from "./appliancegallery/pages/Game";
 
-import SocialBuildingGroup from "./socialbuildinggroup/SocialBuildingGroup";
-import LoginSocialBuildingGroup from "./socialbuildinggroup/pages/LoginSocialBuildingGroup";
-import AdminSocialBuildingGroup from "./socialbuildinggroup/pages/AdminSocialBuildingGroup";
-import GameSocialBuildingGroup from "./socialbuildinggroup/pages/GameSocialBuildingGroup";
+import SocalBuildingGroup from "./socalbuildinggroup/SocalBuildingGroup";
+import LoginSocalBuildingGroup from "./socalbuildinggroup/pages/Login";
+import AdminSocalBuildingGroup from "./socalbuildinggroup/pages/Admin";
+import GameSocalBuildingGroup from "./socalbuildinggroup/pages/Game";
+
+import PlayCity from "./playcity/PlayCity";
+import LoginPlayCity from "./playcity/pages/Login";
+import AdminPlayCity from "./playcity/pages/Admin";
+import GamePlayCity from "./playcity/pages/Game";
 
 
 
@@ -54,10 +59,15 @@ function Router() {
        <Route path="/appliancegallery/admin" component={AdminApplianceGallery} />
       <Route path="/appliancegallery/game"  component={GameApplianceGallery} />
 
-       <Route path="/socialbuildinggroup" component={SocialBuildingGroup} />
-       <Route path="/socialbuildinggroup/login" component={LoginSocialBuildingGroup} />
-       <Route path="/socialbuildinggroup/admin" component={AdminSocialBuildingGroup} />
-      <Route path="/socialbuildinggroup/game"  component={GameSocialBuildingGroup} />
+       <Route path="/socal" component={SocalBuildingGroup} />
+       <Route path="/socal/login" component={LoginSocalBuildingGroup} />
+       <Route path="/socal/admin" component={AdminSocalBuildingGroup} />
+      <Route path="/socal/game"  component={GameSocalBuildingGroup} />
+
+       <Route path="/playcity" component={PlayCity} />
+       <Route path="/playcity/login" component={LoginPlayCity} />
+       <Route path="/playcity/admin" component={AdminPlayCity} />
+      <Route path="/playcity/game"  component={GamePlayCity} />
 
       <Route component={NotFound} />
     </Switch>

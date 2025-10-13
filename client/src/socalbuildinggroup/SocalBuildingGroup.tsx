@@ -1,12 +1,12 @@
 import Home from "./pages/Home"
 
-const Soflopro = () => {
+
+ export default function SocalBuildingGroup () {
   return (
     <div>
-      
-    <Home/>
+        <Home/>
     </div>
   )
 }
 
-export default Soflopro
+

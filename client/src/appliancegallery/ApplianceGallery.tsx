@@ -1,10 +1,10 @@
-import HomeApplianceGallery from "./pages/HomeApplianceGallery"
+import Home from "./pages/Home"
 
 
- export default function Cifuentes () {
+ export default function ApplianceGallery () {
   return (
     <div>
-        <HomeApplianceGallery/>
+        <Home/>
     </div>
   )
 }

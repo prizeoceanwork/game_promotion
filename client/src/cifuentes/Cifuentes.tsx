@@ -1,10 +1,10 @@
-import HomeCifuentes from "./pages/HomeCifuentes"
+import Home from "./pages/Home"
 
 
  export default function Cifuentes () {
   return (
     <div>
-        <HomeCifuentes/>
+        <Home/>
     </div>
   )
 }
