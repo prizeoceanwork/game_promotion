@@ -99,7 +99,7 @@ export default function LoginApplianceGallery() {
                 id="username"
                 name="username"
                 type="email"
-                placeholder="admin@cifuentes.com"
+                placeholder="admin@appliancegallery.com"
                 value={formData.username}
                 onChange={handleInputChange}
                 required

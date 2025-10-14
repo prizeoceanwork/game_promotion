@@ -4,6 +4,10 @@ import GamePreview from "@/components/GamePreview";
 import RegistrationForm from "@/components/RegistrationForm";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import miele from "../assets/miele.png"
+import gaggenau from "../assets/gaggenau.png"
+import thermador from "../assets/thermador.png"
+import timecaliber from "../assets/timecaliber.png"
 
 export default function Home() {
   const [videoWatched, setVideoWatched] = useState(false);
@@ -55,7 +59,7 @@ export default function Home() {
             </h1>
             
             {/* Star Rating */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-3">
               <div className="flex space-x-1">
                 {[...Array(5)].map((_, i) => (
                   <div key={i} className="w-6 h-6 md:w-8 md:h-8 text-yellow-300">
@@ -66,7 +70,34 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            
+              <span className="block text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white ">SPONSORED BY</span>
+            {/* images */} 
+
+            <div className="flex flex-col justify-center items-center my-8 space-y-6">
+              <div className="flex flex-col md:flex-row justify-center items-center md:space-x-6 space-y-6 md:space-y-0">
+                
+                <div className="glowing-element-home overflow-hidden flex justify-center items-center">
+                  <img src={thermador} alt="Thermador" className="w-[90%] object-contain" />
+                </div>
+
+                <div className="glowing-element-home overflow-hidden flex justify-center items-center">
+                  <img src={miele} alt="Miele" className="w-[85%] sm:w-[90%]  object-contain rounded-md" />
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row justify-center items-center md:space-x-6 space-y-6 md:space-y-0">
+                <div className="glowing-element-home overflow-hidden flex justify-center items-center">
+                  <img src={gaggenau} alt="Gaggenau" className="w-[80%] object-contain" />
+                </div>
+
+                <div className="glowing-element-home overflow-hidden flex justify-center items-center">
+                  <img src={timecaliber} alt="True Caliber" className="w-[90%] object-contain" />
+                </div>
+              </div>
+            </div>
+
+
+
             <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-semibold mb-8 px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Watch our Video to see the Amazing Prizes you can WIN!
               <br />

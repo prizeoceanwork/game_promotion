@@ -331,7 +331,7 @@ export default function RegistrationForm({
                               {...field}
                               type="email"
                               disabled={videoRequirementEnabled && !videoWatched}
-                              placeholder="winner@amazingworldmedia.net"
+                              placeholder="playcity@gmail.com"
                               className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-blue-200 cursor-not-allowed" : "bg-white"}`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />

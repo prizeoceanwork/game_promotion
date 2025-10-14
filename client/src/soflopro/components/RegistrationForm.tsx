@@ -57,12 +57,15 @@ export default function RegistrationForm({
   const { data: videoRequirementSetting } = useQuery({
     queryKey: ["/api/soflopro/settings/video_requirement_enabled"],
     queryFn: async () => {
-      const response = await apiRequest("GET", "/api/soflopro/settings/video_requirement_enabled");
+      const response = await apiRequest(
+        "GET",
+        "/api/soflopro/settings/video_requirement_enabled"
+      );
       return response.json();
     },
   });
 
-  const videoRequirementEnabled = videoRequirementSetting?.value === 'true';
+  const videoRequirementEnabled = videoRequirementSetting?.value === "true";
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -84,13 +87,16 @@ export default function RegistrationForm({
     },
     onSuccess: (variables) => {
       // Save user registration data to localStorage for game page
-      localStorage.setItem('userRegistrationData', JSON.stringify({
-        name: variables.name,
-        email: variables.email,
-        phone: variables.phone,
-        videoWatched: variables.videoWatched
-      }));
-      
+      localStorage.setItem(
+        "userRegistrationData",
+        JSON.stringify({
+          name: variables.name,
+          email: variables.email,
+          phone: variables.phone,
+          videoWatched: variables.videoWatched,
+        })
+      );
+
       toast({
         title: "Registration Successful!",
         description: "Redirecting to the game...",
@@ -108,7 +114,9 @@ export default function RegistrationForm({
         error !== null &&
         "message" in error &&
         typeof (error as { message?: string }).message === "string" &&
-        (error as { message: string }).message.includes("Email already registered")
+        (error as { message: string }).message.includes(
+          "Email already registered"
+        )
       ) {
         setShowEmailWarning(true);
       } else {
@@ -143,7 +151,10 @@ export default function RegistrationForm({
   const formatPhoneNumber = (value: string) => {
     const cleaned = value.replace(/\D/g, "");
     if (cleaned.length >= 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+        6,
+        10
+      )}`;
     } else if (cleaned.length >= 3) {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
     }
@@ -169,7 +180,7 @@ export default function RegistrationForm({
               className="text-3xl md:text-4xl font-black text-[#2C5CDC] mb-4"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
-             Get Ready to Play?
+              Get Ready to Play?
             </h2>
             <p
               className="text-lg text-gray-600 mb-6"
@@ -187,7 +198,11 @@ export default function RegistrationForm({
                     : "bg-red-100 text-red-700"
                 }`}
               >
-                {videoWatched ? <CheckCircle size={18} className="flex-shrink-0" /> : <Video size={18} className="flex-shrink-0" />}
+                {videoWatched ? (
+                  <CheckCircle size={18} className="flex-shrink-0" />
+                ) : (
+                  <Video size={18} className="flex-shrink-0" />
+                )}
                 <span
                   className="font-semibold text-sm md:text-base text-center"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -198,7 +213,7 @@ export default function RegistrationForm({
                 </span>
               </div>
             )}
-            
+
             {/* Show registration ready message when video requirement is disabled */}
             {!videoRequirementEnabled && (
               <div className="inline-flex items-center space-x-2 px-3 md:px-4 py-2 rounded-full mb-6 bg-green-100 text-green-700">
@@ -251,9 +266,15 @@ export default function RegistrationForm({
                           <FormControl>
                             <Input
                               {...field}
-                              disabled={videoRequirementEnabled && !videoWatched}
+                              disabled={
+                                videoRequirementEnabled && !videoWatched
+                              }
                               placeholder="Enter your first name"
-                              className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-gray-200 cursor-not-allowed" : "bg-white"}`}
+                              className={`pr-10 ${
+                                videoRequirementEnabled && !videoWatched
+                                  ? "bg-gray-200 cursor-not-allowed"
+                                  : "bg-white"
+                              }`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />
                           </FormControl>
@@ -287,15 +308,21 @@ export default function RegistrationForm({
                           <FormControl>
                             <Input
                               {...field}
-                              disabled={videoRequirementEnabled && !videoWatched}
+                              disabled={
+                                videoRequirementEnabled && !videoWatched
+                              }
                               placeholder="(619) 871-2110"
                               onChange={(e) => {
                                 const formatted = formatPhoneNumber(
-                                  e.target.value,
+                                  e.target.value
                                 );
                                 field.onChange(formatted);
                               }}
-                              className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-gray-200 cursor-not-allowed" : "bg-white"}`}
+                              className={`pr-10 ${
+                                videoRequirementEnabled && !videoWatched
+                                  ? "bg-gray-200 cursor-not-allowed"
+                                  : "bg-white"
+                              }`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />
                           </FormControl>
@@ -330,14 +357,20 @@ export default function RegistrationForm({
                             <Input
                               {...field}
                               type="email"
-                              disabled={videoRequirementEnabled && !videoWatched}
-                              placeholder="winner@amazingworldmedia.net"
-                              className={`pr-10 ${(videoRequirementEnabled && !videoWatched) ? "bg-gray-200 cursor-not-allowed" : "bg-white"}`}
+                              disabled={
+                                videoRequirementEnabled && !videoWatched
+                              }
+                              placeholder="soflopro@gmail.com"
+                              className={`pr-10 ${
+                                videoRequirementEnabled && !videoWatched
+                                  ? "bg-gray-200 cursor-not-allowed"
+                                  : "bg-white"
+                              }`}
                               style={{ fontFamily: "Montserrat, sans-serif" }}
                             />
                           </FormControl>
                           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                            {(!videoRequirementEnabled || videoWatched) ? (
+                            {!videoRequirementEnabled || videoWatched ? (
                               <Unlock className="text-green-500" size={16} />
                             ) : (
                               <Lock className="text-gray-400" size={16} />
@@ -356,50 +389,58 @@ export default function RegistrationForm({
                     )}
                     <Button
                       type="submit"
-                      disabled={(videoRequirementEnabled && !videoWatched) || registerMutation.isPending}
+                      disabled={
+                        (videoRequirementEnabled && !videoWatched) ||
+                        registerMutation.isPending
+                      }
                       className={`relative w-full bg-gradient-to-r from-[#FEA310] to-[#4150FF] hover:from-[#FEA301] hover:to-[#4150FF] text-white font-black py-4 sm:py-5 md:py-6 px-4 sm:px-6 md:px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-2xl text-lg ${
-                        (videoRequirementEnabled && !videoWatched)
+                        videoRequirementEnabled && !videoWatched
                           ? "from-gray-400 to-gray-500 cursor-not-allowed transform-none"
                           : "hover:shadow-xl"
                       }`}
                       style={{ fontFamily: "Montserrat, sans-serif" }}
                     >
                       <div className="flex items-center justify-center space-x-1 sm:space-x-2 md:space-x-3">
-                        <Video size={20} className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0" />
+                        <Video
+                          size={20}
+                          className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0"
+                        />
                         <span className="font-black text-xs sm:text-sm md:text-lg lg:text-xl text-center leading-tight px-1">
                           {registerMutation.isPending
                             ? "REGISTERING..."
-                            : (!videoRequirementEnabled || videoWatched)
-                              ? "REGISTER TO PLAY"
-                              : "WATCH VIDEO TO UNLOCK"}
+                            : !videoRequirementEnabled || videoWatched
+                            ? "REGISTER TO PLAY"
+                            : "WATCH VIDEO TO UNLOCK"}
                         </span>
-                        <Trophy size={20} className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0" />
+                        <Trophy
+                          size={20}
+                          className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 flex-shrink-0"
+                        />
                       </div>
                     </Button>
                   </div>
 
                   {/* Terms & Conditions */}
-                <div className="text-center text-sm text-gray-600 mt-4">
-  <p style={{ fontFamily: "Montserrat, sans-serif" }}>
-    By registering, you agree to our{" "}
-    <button
-      type="button"
-      onClick={() => setOpenModal("terms")}
-      className="text-[#2C5CDC] hover:underline"
-    >
-      Terms & Conditions
-    </button>{" "}
-    and{" "}
-    <button
-      type="button"
-      onClick={() => setOpenModal("privacy")}
-      className="text-[#2C5CDC] hover:underline"
-    >
-      Privacy Policy
-    </button>
-  </p>
-</div>
-
+                  <div className="text-center text-sm text-gray-600 mt-4">
+                    <p style={{ fontFamily: "Montserrat, sans-serif" }}>
+                      By registering, you agree to our{" "}
+                      <button
+                        type="button"
+                        onClick={() => setOpenModal("terms")}
+                        className="text-[#2C5CDC] hover:underline"
+                      >
+                        Terms & Conditions
+                      </button>{" "}
+                      and{" "}
+                      <button
+                        type="button"
+                        onClick={() => setOpenModal("privacy")}
+                        className="text-[#2C5CDC] hover:underline"
+                      >
+                        Privacy Policy
+                      </button>
+                    </p>
+                  </div>
                 </form>
               </Form>
             </div>
@@ -408,24 +449,22 @@ export default function RegistrationForm({
       </div>
 
       {openModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
-    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto relative p-6">
-      
-      {/* Close button */}
-      <button
-        onClick={() => setOpenModal(null)}
-        className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
-      >
-        <X size={24} />
-      </button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] overflow-y-auto relative p-6">
+            {/* Close button */}
+            <button
+              onClick={() => setOpenModal(null)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+            >
+              <X size={24} />
+            </button>
 
-      {/* Modal content */}
-      {openModal === "terms" && <TermsAndConditions />}
-      {openModal === "privacy" && <PrivacyPolicy />}
-    </div>
-  </div>
-)}
-
+            {/* Modal content */}
+            {openModal === "terms" && <TermsAndConditions />}
+            {openModal === "privacy" && <PrivacyPolicy />}
+          </div>
+        </div>
+      )}
 
       {/* Eye-catching Email Already Exists Warning Popup */}
       {showEmailWarning && (
@@ -433,7 +472,7 @@ export default function RegistrationForm({
           <div className="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl transform ">
             {/* Animated Background */}
             {/* <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-orange-500 to-red-500 rounded-3xl animate-pulse opacity-20"></div> */}
-            
+
             {/* Warning Icon */}
             <div className="relative text-center mb-6">
               <div className="inline-block p-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-full animate-bounce shadow-lg">
@@ -445,7 +484,7 @@ export default function RegistrationForm({
             </div>
 
             {/* Warning Title */}
-            <h3 
+            <h3
               className="text-2xl font-black text-center mb-4 text-red-600 animate-pulse"
               style={{ fontFamily: "Montserrat, sans-serif" }}
             >
@@ -454,28 +493,29 @@ export default function RegistrationForm({
 
             {/* Warning Message */}
             <div className="text-center mb-6">
-              <p 
+              <p
                 className="text-lg font-bold text-gray-800 mb-2 leading-tight"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
                 This email is already registered!
               </p>
-              <p 
+              <p
                 className="text-sm text-gray-600 mb-4"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
               >
-                You can only play once per email address. Try using a different email or contact support.
+                You can only play once per email address. Try using a different
+                email or contact support.
               </p>
-              
+
               {/* Animated Contact Info */}
               <div className="bg-gradient-to-r from-blue-50 to-orange-50 p-4 rounded-2xl border-2 border-dashed border-orange-400 animate-pulse">
-                <p 
+                <p
                   className="text-sm font-bold text-[#2C5CDC] mb-1"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
                   Need Help?
                 </p>
-                <p 
+                <p
                   className="text-lg font-black text-[#F76D46] animate-bounce"
                   style={{ fontFamily: "Montserrat, sans-serif" }}
                 >
@@ -487,8 +527,8 @@ export default function RegistrationForm({
             {/* Action Buttons */}
             <div className="flex flex-col space-y-3">
               <Button
-                onClick={() => { 
-                  setShowEmailWarning(false)
+                onClick={() => {
+                  setShowEmailWarning(false);
                 }}
                 className="w-full cursor-pointer bg-gradient-to-r from-[#F76D46] to-[#2C5CDC] hover:from-[#F76D46] hover:to-[#2C5CDC] text-white font-black py-4 px-6 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg"
                 style={{ fontFamily: "Montserrat, sans-serif" }}
@@ -496,7 +536,7 @@ export default function RegistrationForm({
                 <CheckCircle className="mr-2" size={20} />
                 GOT IT!
               </Button>
-              
+
               <Button
                 onClick={() => {
                   setShowEmailWarning(false);

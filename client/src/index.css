@@ -180,6 +180,15 @@
   border-radius: 10px;
   box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
 }
+
+.glowing-element-home {
+  background-color: rgb(255, 255, 255);
+  height: 130px;
+  width: 350px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}
 @media (max-width : 769px) {
   
   .glowing-element-logo {
@@ -206,4 +215,13 @@
   box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
 }
 
+
+.glowing-element-home {
+  background-color: rgb(255, 255, 255);
+  height: 90px;
+  width: 250px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}
 }
