@@ -189,6 +189,14 @@
   border-radius: 10px;
   box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
 }
+.glowing-element-appliance {
+  background-color: rgb(255, 255, 255);
+  height: 60px;
+  width: 150px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 30px 15px rgb(255, 255, 255); /* X-offset, Y-offset, blur-radius, spread-radius, color */
+}
 @media (max-width : 769px) {
   
   .glowing-element-logo {
