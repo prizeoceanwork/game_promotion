@@ -5,6 +5,11 @@ import RegistrationForm from "../components/RegistrationForm";
 import Footer from "../components/Footer";
 import companyLogo1 from "../assets/Game-1(CIFUENTES INSTALLATIONS)/Assets/CIFUENTES INSTALLATIONS  LOGO.png";
 import logoImage from "../assets/logo.png"; 
+import miele from "../../assets/miele.png"
+import gaggenau from "../../assets/gaggenau.png"
+import thermador from "../../assets/thermador.png"
+import timecaliber from "../../assets/timecaliber.png"
+
 
 import { useState } from "react";
 
@@ -61,6 +66,31 @@ export default function HomeCifuentes() {
                   </div>
                 ))}
               </div>
+            </div>
+              <span className="block text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-10 ">OUR FEATURED SPONSORS</span>
+
+              {/* Brand Logos Section */}
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 mb-10 px-4">
+              <img
+                src={miele}
+                alt="Miele"
+                className="h-10 glowing-element-appliance  sm:h-14 md:h-10 w-auto object-contain"
+              />
+              <img
+                src={gaggenau}
+                alt="Gaggenau"
+                className="h-10 glowing-element-appliance  sm:h-14 md:h-10 w-auto object-contain"
+              />
+              <img
+                src={thermador}
+                alt="Thermador"
+                className="h-10 glowing-element-appliance  sm:h-14 md:h-10 w-auto object-contain"
+              />
+              <img
+                src={timecaliber}
+                alt="Time Caliber"
+                className="h-10 glowing-element-appliance  sm:h-14 md:h-10 w-auto object-contain"
+              />
             </div>
                 <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white font-semibold mb-2 px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
            OUR SHARED VISION TO PROVIDE HOMEOWNERS EXCEPTIONAL SERVICES BROUGHT US TOGETHER!

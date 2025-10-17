@@ -11,7 +11,10 @@ import Hls from "hls.js";
 import scratchSound from "../assets/assets_sounds_sound_scratch.mp3";
 import { useRef } from "react";
 import companyLogo1 from "../assets/Play City logo.jpg";
-
+import miele from "../../assets/miele.png"
+import gaggenau from "../../assets/gaggenau.png"
+import thermador from "../../assets/thermador.png"
+import timecaliber from "../../assets/timecaliber.png"
 
 
 
@@ -727,23 +730,86 @@ useEffect(() => {
 
               {/* 📞 Call-to-action */}
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-3 rounded-lg mb-3 shadow-md">
-                <h4 className="text-base mb-2">CLAIM YOUR PRIZE!</h4>
-                <div className="bg-white text-gray-900 p-2 rounded shadow-inner mb-2">
-                  <p className="text-sm font-semibold text-blue-600">📞 CALL NOW</p>
-                  <p className="text-lg text-green-600">(619) 871-2110</p>
-                </div>
-                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-2 rounded shadow-inner">
-                  <p
-                    className="text-xs font-light"
-                    style={{
-                      fontWeight: "bold",
-                      fontFamily: "Montserrat, sans-serif",
-                    }}
-                  >
-                    ✉️ Check your email for confirmation!
-                  </p>
-                </div>
-              </div>
+                      <h4 className="text-base mb-2">CLAIM YOUR PRIZE!</h4>
+
+                      <div className="bg-white text-gray-900 p-2 rounded shadow-inner mb-2">
+                        <p className="text-sm font-semibold text-blue-600">📞 CALL NOW</p>
+                        <p className="text-lg text-green-600">(619) 871-2110</p>
+                      </div>
+
+                      <button
+                           onClick={() => window.open("https://mail.google.com", "_blank")}
+                        className="w-full"
+                      >
+                        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white cursor-pointer p-2 rounded shadow-inner">
+                          <div className="text-xs font-bold text-white hover:text-gray-200">
+                            ✉️ Go to email!
+                          </div>
+                        </div>
+                      </button>
+
+                     
+                  <div className="grid grid-cols-2 gap-6 justify-items-center my-8">
+                    {/* MIELE */}
+                    <a
+                      href="https://nativecoastappliance.com/Miele-Kitchen-appliances-v13.htm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glowing-element-game overflow-hidden flex justify-center items-center cursor-pointer"
+                    >
+                      <img
+                        src={miele}
+                        alt="Miele"
+                        className="w-[140px] object-contain rounded-md hover:scale-110 transition-transform duration-200"
+                      />
+                    </a>
+
+                    {/* THERMADOR */}
+                    <a
+                      href="https://nativecoastappliance.com/Thermador-v1.htm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glowing-element-game overflow-hidden flex justify-center items-center cursor-pointer"
+                    >
+                      <img
+                        src={thermador}
+                        alt="Thermador"
+                        className="w-[140px] object-contain hover:scale-110 transition-transform duration-200"
+                      />
+                    </a>
+
+                    {/* GAGGENAU */}
+                    <a
+                      href="https://nativecoastappliance.com/Gaggenau-v1.htm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glowing-element-game overflow-hidden flex justify-center items-center cursor-pointer"
+                    >
+                      <img
+                        src={gaggenau}
+                        alt="Gaggenau"
+                        className="w-[140px] object-contain hover:scale-110 transition-transform duration-200"
+                      />
+                    </a>
+
+                    {/* TRUE */}
+                    <a
+                      href="https://nativecoastappliance.com/True-v1.htm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glowing-element-game overflow-hidden flex justify-center items-center cursor-pointer"
+                    >
+                      <img
+                        src={timecaliber}
+                        alt="True"
+                        className="w-[140px] object-contain hover:scale-110 transition-transform duration-200"
+                      />
+                    </a>
+                  </div>
+
+
+
+                    </div>
 
               {/* 🎥 Second video */}
                   
